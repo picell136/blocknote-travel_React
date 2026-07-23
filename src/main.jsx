@@ -1,39 +1,32 @@
 import React from 'react';
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import './index.css'
-
-import ErrorPage404 from './error-page-404';
-
-import {
-	createBrowserRouter,
-	RouterProvider,
-} from 'react-router-dom';
+import './index.css';
 
 import Home, {
-	loader as rootLoader,
-	action as rootAction
+    loader as rootLoader,
+    action as rootAction
 } from './components/home/Home';
 
 import Trip, {
-	loader as tripLoader,
-	action as tripAction,
+    loader as tripLoader,
+    action as tripAction,
 } from './components/trip/Trip';
 
 import EditTrip, {
-	loader as editTripLoader,
-	action as editTripAction,
+    loader as editTripLoader,
+    action as editTripAction,
 } from './components/editTrip/EditTrip';
 
 import ShowNote, {
-	loader as showNoteLoader,
+    loader as showNoteLoader,
 } from './components/showNote/ShowNote';
 
 import EditNote, {
-	loader as editNoteLoader,
-	action as editNoteAction,
+    loader as editNoteLoader,
+    action as editNoteAction,
 } from './components/editNote/EditNote';
 
 const router = createBrowserRouter([
@@ -66,18 +59,12 @@ const router = createBrowserRouter([
         loader: editNoteLoader,
         action: editNoteAction,
     },
-]);
+], {
+    basename: '/blocknote-travel_React' 
+});
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter basename="/blocknote-travel_React">
-      <Routes router={router}>
-        <Route path="/" element={<Home />} />
-        <Route path="/trips/:tripId" element={<Trip />} />
-        <Route path="/trips/:tripId/edit" element={<EditTrip />} />
-        <Route path="/trips/:tripId/:noteId" element={<ShowNote />} />
-        <Route path="/trips/:tripId/:noteId/edit" element={<EditNote />} />
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>
+    <StrictMode>
+        <RouterProvider router={router} />
+    </StrictMode>
 );
