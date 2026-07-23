@@ -1,0 +1,13 @@
+.dates {
+  margin: 10px 0 10px 0;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.selects_text {
+  display: inline-block;
+  padding: 4px;
+}

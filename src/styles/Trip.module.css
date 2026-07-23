@@ -1,0 +1,20 @@
+
+button {
+  margin-left: 3px;
+}
+
+.desc {
+  display: inline-block;
+  vertical-align: top;
+  gap: 10px; 
+}
+
+textarea {
+  margin-top: 3px;
+  max-width: 300px;        /* Максимальная ширина */
+  max-height: 200px;      /* Максимальная высота */
+  min-width: 200px;       /* Минимальная ширина */
+  min-height: 100px;      /* Минимальная высота */
+  resize: horizontal;  
+  font-size: large;
+}
