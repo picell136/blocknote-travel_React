@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/blocknote-travel_React',
+  base: '/blocknote-travel_React/',
   plugins: [react()],
 })
