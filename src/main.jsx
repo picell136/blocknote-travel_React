@@ -1,7 +1,7 @@
 import React from 'react';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './index.css'
 
@@ -70,6 +70,14 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
-)
+    <BrowserRouter basename="/название-репозитория">
+      <Routes router={router}>
+        <Route path="/" element={<Home />} />
+        <Route path="/trips/:tripId" element={<Trip />} />
+        <Route path="/trips/:tripId/edit" element={<EditTrip />} />
+        <Route path="/trips/:tripId/:noteId" element={<ShowNote />} />
+        <Route path="/trips/:tripId/:noteId/edit" element={<EditNote />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
+);
