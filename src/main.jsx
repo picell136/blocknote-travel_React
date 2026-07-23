@@ -70,7 +70,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename="/название-репозитория">
+    <BrowserRouter basename="/blocknote-travel_React">
       <Routes router={router}>
         <Route path="/" element={<Home />} />
         <Route path="/trips/:tripId" element={<Trip />} />
