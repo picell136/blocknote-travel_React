@@ -40,7 +40,7 @@ const Layout = () => {
   };
 
   return (
-    <>
+    <div className={styles.layout}>
     <AppBar 
         position="static" 
         sx={{ 
@@ -166,9 +166,11 @@ const Layout = () => {
       </Container>
     </AppBar>
     <div className={styles.container}>
-      <Outlet />
+      <div className={styles.subcontainer}>
+        <Outlet />
+      </div>
     </div>
-    </>
+    </div>
   );
 }
 export default Layout;

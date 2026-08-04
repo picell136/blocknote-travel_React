@@ -119,8 +119,7 @@ const Home = () => {
         }
         
         setError(null);
-        
-        // Создаем FormData с данными из состояния
+
         const formData = new FormData();
         formData.append('name', name);
         formData.append('day_1', selectedDay_1);
@@ -133,9 +132,9 @@ const Home = () => {
         submit(formData, { method: 'post' });
     };
 
-    return <div>
+    return <div className={styles.container}>
         <div>
-            <h1>Путевые записки</h1>
+            <h1>Путевые заметки</h1>
         </div>
         <div id="menu">
             <Form method="post" onSubmit={handleSubmit} className={styles.form}>

@@ -20,3 +20,7 @@
   display: inline-block;
   padding: 4px;
 }
+
+a {
+  text-decoration: none;
+}
