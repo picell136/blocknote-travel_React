@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { getNote, updateNote } from '../../forStorage';
+import React, { useRef, useState } from 'react'
+import { getNote, updateNote, savePhoto } from '../../forStorage';
 import { useLoaderData, useNavigate, useParams, Form, useSubmit, redirect } from 'react-router-dom';
 
 import styles from "../../styles/EditNote.module.css"; 
@@ -44,6 +44,7 @@ const EditNote = () => {
 	const [year, setYear] = useState(note.year || '');
 
     const [photos, setPhotos] = useState(note.photos || ''); 
+    const fileInputRef = useRef(null);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -105,6 +106,23 @@ const EditNote = () => {
         } 
         return arr   
     }
+
+    const handleFileChange = async (e) => {
+        const files = Array.from(e.target.files); 
+        if (files.length === 0) return;
+
+        // Обрабатываем каждый файл
+        for (const file of files) {
+            try {
+                const base64 = await savePhoto(file);
+                setPhotos(prev => [...prev, base64]);
+            } catch (error) {
+                console.error('Ошибка сохранения фото:', error);
+            }
+        }
+        
+        e.target.value = ''; 
+    };
 
     return (
         <>
@@ -170,6 +188,19 @@ const EditNote = () => {
                         </select>
                     </label>
                 </div>
+
+                <button type="button" onClick={() => fileInputRef.current.click()}>
+                    Добавить фото
+                </button>
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    multiple   
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                />
 
                 <div className={styles.gallery}>
                     {/* Миниатюры загруженных фото */}

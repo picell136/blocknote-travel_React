@@ -13,3 +13,7 @@
 .closeSign {
   z-index: 2;
 }
+
+img {
+  padding: 6px;
+}
