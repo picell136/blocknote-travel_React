@@ -3,6 +3,7 @@ import { getTrips, createTrip } from '../../forStorage';
 import { Form, Outlet, Link, useLoaderData, useSubmit } from 'react-router-dom';
 
 import styles from "../../styles/Home.module.css"; 
+import countries from '../../data/options.js';
 
 export async function loader() {
     const trips = await getTrips();
@@ -138,17 +139,21 @@ const Home = () => {
         </div>
         <div id="menu">
             <Form method="post" onSubmit={handleSubmit} className={styles.form}>
-                <div>
+                <label>
                     <span>Название страны:</span>
-                    <input 
-                        placeholder="название" 
-                        type="text" 
+                    <select 
+                        value={name} 
                         name="name" 
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
+                        className={styles.countries}
+                        onChange={e => setName(e.target.value)}
+                    >
+                        {countries.map(i => (
+                        <option key={i} value={i}>
+                            {i}
+                        </option>
+                        ))}
+                    </select>
+                </label>
 
                 <div>
                     <div className={styles.title}>Выберите период пребывания</div>        

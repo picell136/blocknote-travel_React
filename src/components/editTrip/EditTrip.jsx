@@ -4,6 +4,7 @@ import { getTrip, updateTrip } from '../../forStorage';
 import { Form, useLoaderData, useNavigate, redirect, useParams } from 'react-router-dom';
 
 import styles from "../../styles/EditTrip.module.css"; 
+import countries from '../../data/options.js';
 
 export async function action({ request, params }) {
 	const formData = await request.formData();
@@ -34,7 +35,7 @@ export async function loader({ params }) {
 }
 
 const EditTrip = () => {
-
+    const [name, setName] = useState('');
     const navigate = useNavigate();
     const { trip } = useLoaderData();
     const { tripId } = useParams();
@@ -103,15 +104,21 @@ const EditTrip = () => {
                     <h2>Редактирование поездки</h2>
                 </div>
                 <Form method="post" id="trip-form">
-                    <div>
-                        <span>Поездка:</span>
-                        <input 
-                            placeholder="name" 
-                            type="text" 
+                    <label>
+                        <span>Название страны:</span>
+                        <select 
+                            defaultValue={trip.name} 
                             name="name" 
-                            defaultValue={trip.name}
-                        />
-                    </div>
+                            className={styles.countries}
+                            onChange={e => setName(e.target.value)}
+                        >
+                            {countries.map(i => (
+                            <option key={i} value={i}>
+                                {i}
+                            </option>
+                            ))}
+                        </select>
+                    </label>
 
                     <div className={styles.dates}>
                         <div className={styles.title}>Выберите период</div>        
