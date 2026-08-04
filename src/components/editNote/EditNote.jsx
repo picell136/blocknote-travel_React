@@ -126,6 +126,9 @@ const EditNote = () => {
 
     return (
         <>
+            <div>
+                <h2>Редактирование заметки</h2>
+            </div>
 			<Form method="post" onSubmit={handleSubmit}>
 				<div>
 					<span>Название:</span>
