@@ -274,7 +274,7 @@ const Trip = () => {
                 <ul>
                     {notes.map((note) => (
                         <React.Fragment key={note.id}>
-                            <li>
+                            <li className={styles.noteItem}>
                                 <Link to={`/trips/${trip.id}/${note.id}`}>
                                     {note.year}/{+note.month + 1}/{note.day} 
                                     {note.name ? ` ${note.name} ` : <i>Unnamed</i>} 
@@ -285,7 +285,7 @@ const Trip = () => {
                                     <img
                                         src={note.photos[0]}
                                         alt="preview"
-                                        style={{ maxHeight: '75px', objectFit: 'cover', marginLeft: '10px', marginRight: '10px' }}
+                                        style={{ maxHeight: '75px', objectFit: 'cover' }}
                                     />
                                 )}
 
@@ -299,7 +299,7 @@ const Trip = () => {
                                 >
                                     Редактировать заметку
                                 </button>
-                            </li> 
+                            </li>
                         </React.Fragment>
                     ))}
                 </ul>
@@ -313,6 +313,48 @@ const Trip = () => {
                     <hr />
                 </>
             )}
+
+            <div>
+                <label>
+                    <select 
+                        value={selectedDay_1} 
+                        name="day" 
+                        onChange={e => setSelectedDay_1(e.target.value)}
+                    >
+                        {daysInMonth(selectedMonth_1).map(i => (
+                        <option key={i} value={i}>
+                            {i}
+                        </option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    <select 
+                        value={selectedMonth_1}
+                        name="month"
+                        onChange={e => setSelectedMonth_1(e.target.value)}
+                    >
+                        {monthOptions.map(month => (
+                        <option key={month.value} value={month.value}>
+                            {month.text}
+                        </option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    <select 
+                        value={selectedYear_1}
+                        name="year"
+                        onChange={e => setSelectedYear_1(e.target.value)}
+                    >
+                        {yearOptions.map(year => (
+                        <option key={year.value} value={year.value}>
+                            {year.text}
+                        </option>
+                        ))}
+                    </select>
+                </label>
+            </div>
 
             <Form method="post" onSubmit={handleSubmit}>
                 <div>
@@ -335,62 +377,12 @@ const Trip = () => {
                         required
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
-                    >
-                    </textarea>
-                </div>
-
-                <div>
-                    <label>
-                        <select 
-                            value={selectedDay_1} 
-                            name="day" 
-                            onChange={e => setSelectedDay_1(e.target.value)}
-                        >
-                            {daysInMonth(selectedMonth_1).map(i => (
-                            <option key={i} value={i}>
-                                {i}
-                            </option>
-                            ))}
-                        </select>
-                    </label>
-                    <label>
-                        <select 
-                            value={selectedMonth_1}
-                            name="month"
-                            onChange={e => setSelectedMonth_1(e.target.value)}
-                        >
-                            {monthOptions.map(month => (
-                            <option key={month.value} value={month.value}>
-                                {month.text}
-                            </option>
-                            ))}
-                        </select>
-                    </label>
-                    <label>
-                        <select 
-                            value={selectedYear_1}
-                            name="year"
-                            onChange={e => setSelectedYear_1(e.target.value)}
-                        >
-                            {yearOptions.map(year => (
-                            <option key={year.value} value={year.value}>
-                                {year.text}
-                            </option>
-                            ))}
-                        </select>
-                    </label>
+                    />
                 </div>
                 
                 <input type="hidden" name="photos" value={photos.join('###_SEPARATOR_###')} />
 
-                <div style={{ alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
-                    <button type="button" onClick={() => fileInputRef.current.click()}>
-                        Добавить фото
-                    </button>
-                </div>
-
                 <div>
-                    {/* Миниатюры загруженных фото */}
                     {photos.map((photo, index) => (
                         <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
                             <img
@@ -398,7 +390,6 @@ const Trip = () => {
                                 alt={`preview ${index}`}
                                 style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                             />
-                            {/* Кнопка удаления */}
                             <button
                                 type="button"
                                 onClick={() => setPhotos(prev => prev.filter((_, i) => i !== index))}
@@ -424,9 +415,15 @@ const Trip = () => {
                         </div>
                     ))}
                 </div>
-                
 
-                <button type="submit" style={{ marginTop: '10px' }}>Добавить заметку</button> 
+                {/* Общий контейнер для всех трёх кнопок */}
+                <div className={styles.actions}>
+                    <button type="button" onClick={() => fileInputRef.current.click()}>
+                        Добавить фото
+                    </button>
+                    <button type="submit">Добавить заметку</button>
+                    <button type="button" onClick={() => navigate(`/`)}>Назад</button>
+                </div>
             </Form>
 
             <input
@@ -438,10 +435,6 @@ const Trip = () => {
                 onChange={handleFileChange}
             />
 
-            <p>
-                <button onClick={() => navigate(`/`)}>Назад</button>
-            </p>
-            
             {error && (
                 <div style={{ color: 'red', padding: '10px', marginTop: '10px' }}>
                     ⚠️ {error}

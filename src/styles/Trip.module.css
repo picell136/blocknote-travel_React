@@ -1,3 +1,28 @@
+.noteItem {
+  display: flex;
+  align-items: center;     /* центрирование по вертикали */
+  gap: 10px;               /* равные промежутки между элементами */
+  flex-wrap: wrap;         /* перенос на новую строку при нехватке места */
+  margin-bottom: 10px;     /* небольшой отступ между заметками */
+}
+
+.noteItem a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;   
+  align-items: center;      
+  gap: 15px;                
+  margin-top: 20px;
+}
+
+.actions button {
+  margin-left: 0;           
+  width: 200px;             
+}
 
 button {
   margin-left: 3px;
@@ -11,10 +36,10 @@ button {
 
 textarea {
   margin-top: 3px;
-  max-width: 300px;        /* Максимальная ширина */
-  max-height: 200px;      /* Максимальная высота */
-  min-width: 200px;       /* Минимальная ширина */
-  min-height: 100px;      /* Минимальная высота */
+  max-width: 300px;
+  max-height: 200px;
+  min-width: 200px;
+  min-height: 100px;
   resize: horizontal;  
   font-size: large;
 }
