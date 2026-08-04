@@ -270,6 +270,7 @@ const Trip = () => {
             </div>
 
             {notes && notes.length > 0 ? (
+                <>
                 <ul>
                     {notes.map((note) => (
                         <React.Fragment key={note.id}>
@@ -299,10 +300,11 @@ const Trip = () => {
                                     Редактировать заметку
                                 </button>
                             </li> 
-                            <hr />
                         </React.Fragment>
                     ))}
                 </ul>
+                <hr />
+                </>
             ) : (
                 <>
                     <p>
