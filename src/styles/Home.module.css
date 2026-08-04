@@ -1,3 +1,11 @@
+.form {
+  margin: 0 auto;
+  padding: 5px;
+  width: 40%;
+  align-items: center;
+  border: rgba(128, 128, 128, 0.5) solid 3px;
+  border-radius: 10px;
+}
 
 .dates {
   margin: 10px 0 10px 0;

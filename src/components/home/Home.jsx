@@ -138,7 +138,7 @@ const Home = () => {
             <h1>Путевые записки</h1>
         </div>
         <div id="menu">
-            <Form method="post" onSubmit={handleSubmit}>
+            <Form method="post" onSubmit={handleSubmit} className={styles.form}>
                 <div>
                     <span>Название страны:</span>
                     <input 
