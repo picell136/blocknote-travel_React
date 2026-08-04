@@ -66,7 +66,7 @@ const Layout = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            MY_JOURNEY
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -120,7 +120,7 @@ const Layout = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            MY_JOURNEY
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
