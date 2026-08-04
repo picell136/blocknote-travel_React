@@ -272,43 +272,43 @@ const Trip = () => {
             {notes && notes.length > 0 ? (
                 <ul>
                     {notes.map((note) => (
-                        <>
-                        <li key={note.id}>
-                            <Link to={`/trips/${trip.id}/${note.id}`}>
-                                {note.year}/{+note.month + 1}/{note.day} 
-                                {note.name ? ` ${note.name} ` : <i>Unnamed</i>} 
-                                {note.desc ? ` ${shortDesc(note.desc)} ` : <i>No description</i>}
-                            </Link>
+                        <React.Fragment key={note.id}>
+                            <li>
+                                <Link to={`/trips/${trip.id}/${note.id}`}>
+                                    {note.year}/{+note.month + 1}/{note.day} 
+                                    {note.name ? ` ${note.name} ` : <i>Unnamed</i>} 
+                                    {note.desc ? ` ${shortDesc(note.desc)} ` : <i>No description</i>}
+                                </Link>
 
-                            {note.photos && note.photos.length > 0 && (
-                                <img
-                                    src={note.photos[0]} // первое фото
-                                    alt="preview"
-                                    style={{ width: '50px', height: '50px', objectFit: 'cover', marginLeft: '10px', marginRight: '10px' }}
-                                />
-                            )}
+                                {note.photos && note.photos.length > 0 && (
+                                    <img
+                                        src={note.photos[0]}
+                                        alt="preview"
+                                        style={{ width: '50px', height: '50px', objectFit: 'cover', marginLeft: '10px', marginRight: '10px' }}
+                                    />
+                                )}
 
-                            <button onClick={() => handleDeleteNote(note.id)}>
-                                Удалить
-                            </button>
+                                <button onClick={() => handleDeleteNote(note.id)}>
+                                    Удалить
+                                </button>
 
-                            <button 
-                                onClick={() => navigate(`${note.id}/edit`)}
-                                className={styles.button}
+                                <button 
+                                    onClick={() => navigate(`${note.id}/edit`)}
+                                    className={styles.button}
                                 >
-                                Редактировать заметку
-                            </button>
-
-                        </li> 
-                        <hr></hr>
-                        </>
+                                    Редактировать заметку
+                                </button>
+                            </li> 
+                            <hr />
+                        </React.Fragment>
                     ))}
                 </ul>
-            ) : (<>
-                <p>
-                    <i>здесь нет заметок ...</i>
-                </p>
-                <hr></hr>
+            ) : (
+                <>
+                    <p>
+                        <i>здесь нет заметок ...</i>
+                    </p>
+                    <hr />
                 </>
             )}
 
