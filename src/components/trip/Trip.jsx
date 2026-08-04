@@ -129,16 +129,20 @@ const Trip = () => {
     
 
     const handleFileChange = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        
-        try {
-            const base64 = await savePhoto(file);
-            setPhotos(prev => [...prev, base64]); // добавляем base64 в массив
-            e.target.value = null; // очищаем input
-        } catch (error) {
-            console.error('Ошибка сохранения фото:', error);
+        const files = Array.from(e.target.files); 
+        if (files.length === 0) return;
+
+        // Обрабатываем каждый файл
+        for (const file of files) {
+            try {
+                const base64 = await savePhoto(file);
+                setPhotos(prev => [...prev, base64]);
+            } catch (error) {
+                console.error('Ошибка сохранения фото:', error);
+            }
         }
+        
+        e.target.value = ''; 
     };
 
     let date  = new Date();
@@ -268,6 +272,7 @@ const Trip = () => {
             {notes && notes.length > 0 ? (
                 <ul>
                     {notes.map((note) => (
+                        <>
                         <li key={note.id}>
                             <Link to={`/trips/${trip.id}/${note.id}`}>
                                 {note.year}/{+note.month + 1}/{note.day} 
@@ -295,12 +300,16 @@ const Trip = () => {
                             </button>
 
                         </li> 
+                        <hr></hr>
+                        </>
                     ))}
                 </ul>
-            ) : (
+            ) : (<>
                 <p>
                     <i>здесь нет заметок ...</i>
                 </p>
+                <hr></hr>
+                </>
             )}
 
             <Form method="post" onSubmit={handleSubmit}>
@@ -367,25 +376,60 @@ const Trip = () => {
                         </select>
                     </label>
                 </div>
+                
                 <input type="hidden" name="photos" value={photos.join('###_SEPARATOR_###')} />
 
-                <p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
                     <button type="button" onClick={() => fileInputRef.current.click()}>
                         Добавить фото
-                    </button>                
-                </p>
+                    </button>
 
-                <button type="submit">Добавить заметку</button> 
+                    {/* Миниатюры загруженных фото */}
+                    {photos.map((photo, index) => (
+                        <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+                            <img
+                                src={photo}
+                                alt={`preview ${index}`}
+                                style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                            />
+                            {/* Кнопка удаления */}
+                            <button
+                                type="button"
+                                onClick={() => setPhotos(prev => prev.filter((_, i) => i !== index))}
+                                style={{
+                                    position: 'absolute',
+                                    top: '-5px',
+                                    right: '-5px',
+                                    background: 'red',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '20px',
+                                    height: '20px',
+                                    cursor: 'pointer',
+                                    fontSize: '12px',
+                                    lineHeight: '20px',
+                                    textAlign: 'center',
+                                    padding: 0,
+                                }}
+                            >
+                                ×
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
+                <button type="submit" style={{ marginTop: '10px' }}>Добавить заметку</button> 
             </Form>
 
             <input
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
+                multiple   
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
             />
-            {photos.length > 0 && <span>Загружено фото: {photos.length} шт. </span>}
 
             <p>
                 <button onClick={() => navigate(`/`)}>Назад</button>

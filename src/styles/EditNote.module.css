@@ -6,4 +6,10 @@
   gap: 10px; 
 }
 
+.gallery {
+  padding: 10px;
+}
 
+.closeSign {
+  z-index: 2;
+}

@@ -43,6 +43,8 @@ const EditNote = () => {
 	const [month, setMonth] = useState(note.month || '');
 	const [year, setYear] = useState(note.year || '');
 
+    const [photos, setPhotos] = useState(note.photos || ''); 
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		
@@ -167,6 +169,43 @@ const EditNote = () => {
                             ))}
                         </select>
                     </label>
+                </div>
+
+                <div className={styles.gallery}>
+                    {/* Миниатюры загруженных фото */}
+                    {photos.map((photo, index) => (
+                        <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+                            <img
+                                src={photo}
+                                alt={`preview ${index}`}
+                                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                            />
+                            {/* Кнопка удаления */}
+                            <button
+                                type="button"
+                                onClick={() => setPhotos(prev => prev.filter((_, i) => i !== index))}
+                                className={styles.closeSign}
+                                style={{
+                                    position: 'absolute',
+                                    top: '-5px',
+                                    right: '-5px',
+                                    background: 'red',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '20px',
+                                    height: '20px',
+                                    cursor: 'pointer',
+                                    fontSize: '12px',
+                                    lineHeight: '20px',
+                                    textAlign: 'center',
+                                    padding: 0,
+                                }}
+                            >
+                                ×
+                            </button>
+                        </div>
+                    ))}
                 </div>
 				
 				<div style={{ marginTop: '10px' }}>
