@@ -285,7 +285,7 @@ const Trip = () => {
                                     <img
                                         src={note.photos[0]}
                                         alt="preview"
-                                        style={{ width: '50px', height: '50px', objectFit: 'cover', marginLeft: '10px', marginRight: '10px' }}
+                                        style={{ maxHeight: '75px', objectFit: 'cover', marginLeft: '10px', marginRight: '10px' }}
                                     />
                                 )}
 
@@ -321,6 +321,7 @@ const Trip = () => {
                         placeholder="Название заметки" 
                         type="text" 
                         name="name" 
+                        required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -331,6 +332,7 @@ const Trip = () => {
                         placeholder="Описание"
                         type="text"
                         name="desc"
+                        required
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
                     >
@@ -381,18 +383,20 @@ const Trip = () => {
                 
                 <input type="hidden" name="photos" value={photos.join('###_SEPARATOR_###')} />
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
+                <div style={{ alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
                     <button type="button" onClick={() => fileInputRef.current.click()}>
                         Добавить фото
                     </button>
+                </div>
 
+                <div>
                     {/* Миниатюры загруженных фото */}
                     {photos.map((photo, index) => (
                         <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
                             <img
                                 src={photo}
                                 alt={`preview ${index}`}
-                                style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                             />
                             {/* Кнопка удаления */}
                             <button
@@ -420,6 +424,7 @@ const Trip = () => {
                         </div>
                     ))}
                 </div>
+                
 
                 <button type="submit" style={{ marginTop: '10px' }}>Добавить заметку</button> 
             </Form>

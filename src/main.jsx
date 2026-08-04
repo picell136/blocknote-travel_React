@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './index.css';
+import Layout from './components/layout/Layout';
 
 import Home, {
     loader as rootLoader,
@@ -32,32 +33,38 @@ import EditNote, {
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />,
-        loader: rootLoader,
-        action: rootAction,
-    },
-    {
-        path: '/trips/:tripId',
-        element: <Trip />,
-        loader: tripLoader,
-        action: tripAction,
-    },
-    {
-        path: '/trips/:tripId/edit',
-        element: <EditTrip />,
-        loader: editTripLoader,
-        action: editTripAction,
-    },
-    {
-        path: '/trips/:tripId/:noteId',
-        element: <ShowNote />,
-        loader: showNoteLoader,
-    },
-    {
-        path: '/trips/:tripId/:noteId/edit',
-        element: <EditNote />,
-        loader: editNoteLoader,
-        action: editNoteAction,
+        element: <Layout />, 
+        children: [
+            {
+                index: true, 
+                element: <Home />,
+                loader: rootLoader,
+                action: rootAction,
+            },
+            {
+                path: '/trips/:tripId',
+                element: <Trip />,
+                loader: tripLoader,
+                action: tripAction,
+            },
+            {
+                path: '/trips/:tripId/edit',
+                element: <EditTrip />,
+                loader: editTripLoader,
+                action: editTripAction,
+            },
+            {
+                path: '/trips/:tripId/:noteId',
+                element: <ShowNote />,
+                loader: showNoteLoader,
+            },
+            {
+                path: '/trips/:tripId/:noteId/edit',
+                element: <EditNote />,
+                loader: editNoteLoader,
+                action: editNoteAction,
+            },
+        ]
     },
 ], {
     basename: '/blocknote-travel_React' 

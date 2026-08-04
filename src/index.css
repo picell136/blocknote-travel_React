@@ -1,12 +1,27 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
 body {
   font-family: 'Century Gothic Regular';
   font-size: 140%;
   background-image: linear-gradient(0deg, #FFDE4E, #A1CB35);
   background-attachment: fixed; 
-  width: 60%;
-  margin: 0 auto;
-
-  text-align: center;
+  width: 100%;
 }
 
 button {
@@ -34,4 +49,8 @@ select:hover {
 
 li {
   list-style-type: none;
+}
+
+hr {
+  margin: 4px;
 }

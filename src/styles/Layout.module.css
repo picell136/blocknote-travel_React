@@ -1,0 +1,17 @@
+body {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+main {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
