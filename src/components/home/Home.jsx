@@ -247,7 +247,7 @@ const Home = () => {
 
                 </div>
 
-                <button type="submit">add trip</button>
+                <button type="submit">Добавить поездку</button>
             </Form>
 
             <h2>Список поездок</h2>

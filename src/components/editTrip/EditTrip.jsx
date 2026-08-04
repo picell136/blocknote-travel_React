@@ -203,7 +203,7 @@ const EditTrip = () => {
                     </div>
 
                     <p>
-                        <button type="submit">save</button>
+                        <button type="submit">Сохранить</button>
                     </p>
                     <p>
                         <button type="button" onClick={() => navigate(`/trips/${tripId}`)}>Cancel</button>  

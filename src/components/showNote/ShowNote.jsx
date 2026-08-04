@@ -41,12 +41,12 @@ const ShowNote = () => {
             <p>
                 {/* <button onClick={() => navigate('edit')}> */}
                 <button onClick={() => navigate(`/trips/${tripId}/${note.id}/edit`)}> 
-                    edit
+                    Редактировать
                 </button>                
             </p>
             
             <p>
-              <button onClick={() => navigate(`/trips/${tripId}`)}>back</button>  
+              <button onClick={() => navigate(`/trips/${tripId}`)}>Назад</button>  
             </p>
 
         </>
