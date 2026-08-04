@@ -142,9 +142,10 @@ const Home = () => {
                 <div>
                     <span>Название страны:</span>
                     <input 
-                        placeholder="name" 
+                        placeholder="название" 
                         type="text" 
                         name="name" 
+                        required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
