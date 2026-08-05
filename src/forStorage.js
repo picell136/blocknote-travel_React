@@ -42,7 +42,6 @@ export async function updateTrip(id, updates) {
 }
 
 export async function deleteTrip(tripId) {
-    // ✅ Работаем с localforage, а НЕ с localStorage
     const trips = await getTrips();
     const updatedTrips = trips.filter((trip) => trip.id !== tripId);
     await localforage.setItem('trips', updatedTrips);
