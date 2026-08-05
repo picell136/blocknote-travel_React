@@ -35,7 +35,7 @@ export async function action({ request }) {
 }
 
 const Home = () => {
-    const { trips } = useLoaderData();
+    const { trips = [] } = useLoaderData();
     const submit = useSubmit();
 
     let date  = new Date();
@@ -271,7 +271,7 @@ const Home = () => {
                 </ul>
             ) : (
                 <p>
-                    <i>no trips here ...</i>
+                    <i>здесь нет поездок ...</i>
                 </p>
             )}
         </div>

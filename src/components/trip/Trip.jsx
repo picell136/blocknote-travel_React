@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { getTrip, getNotes, createNote, savePhoto, deleteNote } from '../../forStorage';
-import { Outlet, useLoaderData, useNavigate, Link, useSubmit, useActionData, useParams } from 'react-router-dom';
-import { Form } from 'react-router-dom';
+import { getTrip, getNotes, createNote, savePhoto, deleteNote, deleteTrip } from '../../forStorage';
+import { Outlet, useLoaderData, useNavigate, Link, useSubmit, useActionData } from 'react-router-dom';
+import { Form, redirect } from 'react-router-dom';
 
 import styles from "../../styles/Trip.module.css"; 
 
@@ -33,8 +33,13 @@ export async function loader({ params }) {
 export async function action({ request, params }) {
     const formData = await request.formData();
     const intent = formData.get("intent");
+
+    if (intent === "delete_trip") {
+        await deleteTrip(params.tripId);
+        return redirect('/');
+    }
     
-    if (intent === "delete") {
+    if (intent === "delete_note") {
         const noteId = formData.get("noteId");
         await deleteNote(noteId, params.tripId);
         
@@ -105,8 +110,6 @@ const Trip = () => {
     const fileInputRef = useRef(null);
     const submit = useSubmit();
 
-    // const { tripId } = useParams();
-
     // Используем заметки из actionData если они есть, иначе из loaderData
     const [notes, setNotes] = useState(loaderNotes);
     const [photos, setPhotos] = useState([]); // массив base64-строк
@@ -125,8 +128,6 @@ const Trip = () => {
             }
         }
     }, [actionData]);
-
-    
 
     const handleFileChange = async (e) => {
         const files = Array.from(e.target.files); 
@@ -235,15 +236,30 @@ const Trip = () => {
         submit(formData, { method: 'post' });
     };
 
-    // Функция для удаления заметки
-    const handleDeleteNote = (noteId) => {
+    // Функция для удаления поездки
+    const handleDeleteTrip = () => {
+        // Подтверждение от пользователя
+        const confirmed = window.confirm(
+            `Вы уверены, что хотите удалить поездку "${trip.name || 'Unnamed'}"?\n` +
+            `Все заметки этой поездки тоже будут удалены.`
+        );
+        
+        if (!confirmed) return;
+
         const formData = new FormData();
-        formData.append('intent', 'delete');
-        formData.append('noteId', noteId);
+        formData.append('intent', 'delete_trip');
         
         submit(formData, { method: 'post' });
     };
 
+    // Функция для удаления заметки
+    const handleDeleteNote = (noteId) => {
+        const formData = new FormData();
+        formData.append('intent', 'delete_note');
+        formData.append('noteId', noteId);
+        
+        submit(formData, { method: 'post' });
+    };
 
     return (
         <>
@@ -257,11 +273,17 @@ const Trip = () => {
                 <p><strong>Даты пребывания</strong>: {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}-{trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} </p>
             </div>
             
-            <p>
+            <div>
                 <button onClick={() => navigate('edit')}>
                     Редактировать поездку
+                </button>
+                <button 
+                    onClick={handleDeleteTrip}
+                    className={styles.deleteButton}
+                >
+                    🗑️ Удалить поездку
                 </button>                
-            </p>
+            </div>
 
             <hr></hr>
 
