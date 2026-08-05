@@ -15,7 +15,7 @@ export async function createTrip(trip) {
 
     const newTrip = {
         ...trip,
-        id: trip.id || nanoid(5),
+        id: nanoid(5),
     };
 
     allTrips.push(newTrip);
@@ -80,7 +80,7 @@ export async function createNote(note) {
 
     const newNote = {
         ...note,
-        id: note.id || nanoid(8),
+        id: nanoid(8),
     };
 
     allNotes.push(newNote);
