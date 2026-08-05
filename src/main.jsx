@@ -6,6 +6,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import Layout from './components/layout/Layout';
 
+import Login from './components/login/Login';
+import AuthCallback from './components/authCallback/AuthCallback';
+
 import Home, {
     loader as rootLoader,
     action as rootAction
@@ -32,11 +35,19 @@ import EditNote, {
 
 const router = createBrowserRouter([
     {
+        path: '/login',
+        element: <Login />,
+    },
+    {
+        path: '/auth/callback',
+        element: <AuthCallback />,
+    },
+    {
         path: '/',
-        element: <Layout />, 
+        element: <Layout />,
         children: [
             {
-                index: true, 
+                index: true,
                 element: <Home />,
                 loader: rootLoader,
                 action: rootAction,
@@ -64,10 +75,10 @@ const router = createBrowserRouter([
                 loader: editNoteLoader,
                 action: editNoteAction,
             },
-        ]
+        ],
     },
 ], {
-    basename: '/blocknote-travel_React' 
+    basename: '/blocknote-travel_React',
 });
 
 createRoot(document.getElementById('root')).render(

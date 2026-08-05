@@ -20,6 +20,17 @@ main {
   left: 0;
 }
 
+.logo {
+  height: 80px;
+}
+
+.logo2 {
+  position: fixed;
+  height: 400px;
+  right: 0.5%;
+  top: 5%;
+}
+
 .layout {
   display: flex;
   flex-direction: column;
