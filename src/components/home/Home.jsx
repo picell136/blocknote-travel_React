@@ -40,7 +40,7 @@ const Home = () => {
 
     let date  = new Date();
 
-    const [name, setName] = useState('');
+    const [name, setName] = useState(countries[0]);
     const [selectedDay_1, setSelectedDay_1] = useState(date.getDate());
     const [selectedMonth_1, setSelectedMonth_1] = useState(date.getMonth());
     const [selectedYear_1, setSelectedYear_1] = useState(date.getFullYear());
