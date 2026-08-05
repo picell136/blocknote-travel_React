@@ -5,7 +5,6 @@ import { nanoid } from 'nanoid';
 
 export async function getTrips() {
     let trips = await localforage.getItem('trips');
-    // localforage возвращает уже объект/массив, JSON.parse НЕ нужен!
     return Array.isArray(trips) ? trips : [];
 }
 
