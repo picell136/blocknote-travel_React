@@ -89,9 +89,7 @@ const Layout = () => {
       }}
         >
         <Container maxWidth="xl">
-          <Toolbar 
-            disableGutters
-          >
+          <Toolbar disableGutters>
             {/* Логотип для десктопа */}
             <img className={styles.logo} src={myJourneyLogo} alt="My Journey" />
             <img className={styles.logo2} src={myJourneyLogo} alt="My Journey" />
