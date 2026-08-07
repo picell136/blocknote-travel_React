@@ -29,12 +29,9 @@ const Layout = () => {
   });
 
   // Состояния для меню
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
-  const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
   // Функция входа через Яндекс
@@ -74,7 +71,23 @@ const Layout = () => {
 
   return (
     <div className={styles.layout}>
-      <AppBar position="static" sx={{ margin: 0, width: '100%' }}>
+      <AppBar 
+        position="sticky" 
+      sx={{
+        top: '25px', 
+        margin: '0 auto',
+        left: 0,     
+        right: 0,    
+        width: '95%',
+        border: '1px solid rgba(255, 255, 255, 0.55)',
+        borderRadius: '24px',
+        background: 'rgba(255, 255, 255, 0.35)',
+        boxShadow: '0 12px 40px rgba(10, 40, 70, 0.25)',
+        WebkitBackdropFilter: 'blur(14px) saturate(1.2)',
+        backdropFilter: 'blur(14px) saturate(1.2)',
+        color: '#041b4d', 
+      }}
+        >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {/* Логотип для десктопа */}
@@ -97,32 +110,6 @@ const Layout = () => {
             >
               MY_JOURNEY
             </Typography>
-
-            {/* Мобильное меню (бургер) */}
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="menu"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                keepMounted
-                transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{ display: { xs: 'block', md: 'none' } }}
-              >
-                {/* Здесь можно добавить навигационные пункты */}
-              </Menu>
-            </Box>
 
             <Typography
               variant="h5"

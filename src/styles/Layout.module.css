@@ -38,12 +38,12 @@ main {
 }
 
 .container {
-  flex: 1;                      /* занимает всё оставшееся место до низа */
+  flex: 1;                     
   width: 60%;
   margin: 0 auto;
   text-align: center;
   padding: 40px 20px 50px;      
-  box-sizing: border-box;       /* чтобы padding не добавлялся к высоте */
+  box-sizing: border-box;       
 }
 
 .subcontainer {
