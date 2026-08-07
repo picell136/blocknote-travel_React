@@ -4,6 +4,8 @@ import { Form, Outlet, Link, useLoaderData, useSubmit } from 'react-router-dom';
 
 import styles from "../../styles/Home.module.css"; 
 import countries from '../../data/options.js';
+ 
+import LocationOnIcon from '@mui/icons-material/Place';
 
 export async function loader() {
     const trips = await getTrips();
@@ -251,7 +253,7 @@ const Home = () => {
 
                 </div>
 
-                <button type="submit">Добавить поездку</button>
+                <button type="submit" className={styles.addButton}>Добавить поездку</button>
             </Form>
 
             <h2>Список поездок</h2>
@@ -260,7 +262,8 @@ const Home = () => {
                 <ul>
                     {trips.map((trip) => (
                         <li key={trip.id}>
-                            <Link to={`trips/${trip.id}`}>
+                            <Link to={`trips/${trip.id}`} className={styles.list}>
+                                <LocationOnIcon />
                                 {trip.name ? ` ${trip.name} ` : <i> Unnamed </i>}
                                 {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}
                                 -

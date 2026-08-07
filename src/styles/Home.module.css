@@ -1,11 +1,8 @@
 .form {
   margin: 0 auto;
   padding: 5px;
-  width: 40%;
+  width: 60%;
   align-items: center;
-  border: rgba(128, 128, 128, 0.5) solid 3px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.71);
 }
 
 .dates {
@@ -26,6 +23,16 @@
   width: 80%;
 }
 
+.addButton {
+  font-family: 'Century Gothic Regular';
+  font-size: 22px;
+  color: white;
+  border-radius: 20px;
+  width: 80%;
+  border: none;
+  background-image: linear-gradient(to right, #080bbb, #098dc2);
+}
+
 h1 {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
@@ -33,4 +40,17 @@ h1 {
 a {
   text-decoration: none;
   padding: 5px;
+}
+
+li {
+  font-family: 'Century Gothic Regular';
+  font-size: 22px;
+}
+
+.list {
+  color: black;
+  font-weight: 600;
+  border: none;
+  border-radius: 20px;
+  background-color: antiquewhite;
 }

@@ -59,9 +59,19 @@ select:hover {
   cursor: pointer;
 }
 
+ul {
+  list-style: none;              /* убираем маркеры */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;           /* центрирует li и не даёт им растягиваться */
+  gap: 10px;                     /* расстояние между контейнерами */
+}
+
 li {
   list-style-type: none;
-}
+}  
 
 hr {
   margin: 4px;
