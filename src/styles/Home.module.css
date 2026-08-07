@@ -19,8 +19,23 @@
   padding: 4px;
 }
 
-.countries {
-  width: 80%;
+.label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+}
+
+.input_countries {      
+  width: 200px;
+}
+
+.select_countries {
+    white-space: nowrap;
+}
+
+.selects_dates{
+  margin: 15px;
 }
 
 .addButton {
@@ -35,6 +50,10 @@
 
 h1 {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  margin-bottom: 10px;
 }
 
 a {

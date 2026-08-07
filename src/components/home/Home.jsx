@@ -32,7 +32,6 @@ export async function action({ request }) {
         year_2: year_2,
     });
     
-    // Возвращаем null, чтобы использовать текущий loader
     return null;
 }
 
@@ -52,7 +51,6 @@ const Home = () => {
 
     const [error, setError] = useState(null); 
 
-    // Функция по нахождению кол-ва дней в месяце
     const daysInMonth_1 = () => {
         let daysInMonth = new Date(selectedYear_1, +selectedMonth_1 + 1, 0).getDate(); // кол-во дней в месяце 
         let arr = [];
@@ -141,23 +139,26 @@ const Home = () => {
         </div>
         <div id="menu">
             <Form method="post" onSubmit={handleSubmit} className={styles.form}>
-                <label>
-                    <span>Название страны:</span>
+                <label className={styles.label}>
+                    <h3  className={styles.select_countries}>
+                        Название страны:
+                    </h3>
+
                     <select 
                         value={name} 
                         name="name" 
-                        className={styles.countries}
+                        className={styles.input_countries}
                         onChange={e => setName(e.target.value)}
                     >
                         {countries.map(i => (
-                        <option key={i} value={i}>
-                            {i}
-                        </option>
+                            <option key={i} value={i}>
+                                {i}
+                            </option>
                         ))}
                     </select>
                 </label>
 
-                <div>
+                <div className={styles.selects_dates}>
                     <div className={styles.title}>Выберите период пребывания</div>        
                     <div>
                         <div className={styles.selects_text}> От: </div>
