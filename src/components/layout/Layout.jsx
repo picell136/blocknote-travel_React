@@ -71,6 +71,7 @@ const Layout = () => {
 
   return (
     <div className={styles.layout}>
+      <img className={styles.bigLogo} src={myJourneyLogo} alt="My Journey" />
       <AppBar 
         position="sticky" 
       sx={{
@@ -94,7 +95,6 @@ const Layout = () => {
           >
             {/* Логотип для десктопа */}
             <img className={styles.logo} src={myJourneyLogo} alt="My Journey" />
-            <img className={styles.logo2} src={myJourneyLogo} alt="My Journey" />
             <Typography
               variant="h6"
               noWrap

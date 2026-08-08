@@ -24,11 +24,11 @@ main {
   height: 80px;
 }
 
-.logo2 {
+.bigLogo {
   position: fixed;
   height: 400px;
-  right: 0.5%;
-  top: 5%;
+  right: 5.5%;
+  top: 9%; 
 }
 
 .layout {
