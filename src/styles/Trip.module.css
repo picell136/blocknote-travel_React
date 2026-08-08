@@ -21,7 +21,7 @@
 
 .actions button {
   margin-left: 0;           
-  width: 200px;             
+  width: 250px;             
 }
 
 button {
@@ -51,4 +51,14 @@ textarea {
   border: none;
   padding: 8px, 16px;
   cursor: pointer;
+}
+
+.addNoteButton {
+  font-family: 'Century Gothic Regular';
+  font-size: 22px;
+  color: white;
+  border-radius: 20px;
+  width: 80%;
+  border: none;
+  background-image: linear-gradient(to right, #080bbb, #098dc2);
 }

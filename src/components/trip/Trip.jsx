@@ -443,8 +443,8 @@ const Trip = () => {
                     <button type="button" onClick={() => fileInputRef.current.click()}>
                         Добавить фото
                     </button>
-                    <button type="submit">Добавить заметку</button>
-                    <button type="button" onClick={() => navigate(`/`)}>Назад</button>
+                    <button type="submit" className={styles.addNoteButton}>Добавить заметку</button>
+                    <button type="button" style={{width: 'auto'}} onClick={() => navigate(`/`)}>Назад</button>
                 </div>
             </Form>
 
