@@ -264,11 +264,15 @@ const Home = () => {
                     {trips.map((trip) => (
                         <li key={trip.id}>
                             <Link to={`trips/${trip.id}`} className={styles.list}>
-                                <LocationOnIcon />
-                                {trip.name ? ` ${trip.name} ` : <i> Unnamed </i>}
-                                {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}
-                                -
-                                {trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} 
+                                <span className={styles.locationIcon}>
+                                    <LocationOnIcon />
+                                </span>
+                                <span>
+                                    {trip.name ? ` ${trip.name} ` : <i> Unnamed </i>}
+                                    {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}
+                                    -
+                                    {trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} 
+                                </span>
                             </Link>
                         </li> 
                     ))}
