@@ -19,14 +19,13 @@ const ShowNote = () => {
         <>
             <div>{note.name ? note.name : <i>unnamed</i>}</div>
             <div>
-                <p>Name: {note.name ? note.name : <i>unnamed</i>}</p>
-                <p>Date: {note.day}/{+note.month + 1}/{note.year}</p>
-                <p>Description: {note.desc || <i>no description</i>}</p>
+                <p>Дата: {note.day}/{+note.month + 1}/{note.year}</p>
+                <p>Описание: {note.desc || <i>no description</i>}</p>
             </div>
 
             {note.photos && note.photos.length > 0 && (
                 <div>
-                    <h4>Photo(s):</h4>
+                    <h4>Фото / изображения:</h4>
                     {note.photos.map((photo, index) => (
                     <img 
                         key={index}
