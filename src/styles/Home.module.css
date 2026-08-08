@@ -31,7 +31,8 @@
 }
 
 .select_countries {
-    white-space: nowrap;
+  background-image: linear-gradient(to down, white, #098dc2);
+  white-space: nowrap;
 }
 
 .selects_dates{
