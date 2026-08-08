@@ -62,3 +62,10 @@ textarea {
   border: none;
   background-image: linear-gradient(to right, #080bbb, #098dc2);
 }
+
+.flag {
+  width: 55px;
+  height: auto;
+  margin-left: 10px;
+  vertical-align: middle;
+}

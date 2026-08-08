@@ -4,6 +4,7 @@ import { Outlet, useLoaderData, useNavigate, Link, useSubmit, useActionData } fr
 import { Form, redirect } from 'react-router-dom';
 
 import styles from "../../styles/Trip.module.css"; 
+import countryCodes from '../../data/countryCodes.js';
 
 export async function loader({ params }) {
     const trip = await getTrip(params.tripId);
@@ -11,7 +12,6 @@ export async function loader({ params }) {
 
     // Сортируем заметки по убыванию даты (новые → старые)
     const sortedNotes = [...notes].sort((a, b) => {
-        // Приводим к числам на случай, если приходят строки
         const yearA = Number(a.year) || 0;
         const monthA = Number(a.month) || 0;
         const dayA = Number(a.day) || 0;
@@ -85,7 +85,6 @@ export async function action({ request, params }) {
         photos, 
     });
 
-    // Возвращаем обновленные данные после создания
     const updatedNotes = await getNotes(params.tripId);
     const sortedNotes = [...updatedNotes].sort((a, b) => {
         const yearA = Number(a.year) || 0;
@@ -110,9 +109,8 @@ const Trip = () => {
     const fileInputRef = useRef(null);
     const submit = useSubmit();
 
-    // Используем заметки из actionData если они есть, иначе из loaderData
     const [notes, setNotes] = useState(loaderNotes);
-    const [photos, setPhotos] = useState([]); // массив base64-строк
+    const [photos, setPhotos] = useState([]); 
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
 
@@ -120,7 +118,6 @@ const Trip = () => {
     useEffect(() => {
         if (actionData?.notes) {
             setNotes(actionData.notes);
-            // Очищаем форму после успешного создания
             if (actionData.success) {
                 setName('');
                 setDesc('');
@@ -133,7 +130,6 @@ const Trip = () => {
         const files = Array.from(e.target.files); 
         if (files.length === 0) return;
 
-        // Обрабатываем каждый файл
         for (const file of files) {
             try {
                 const base64 = await savePhoto(file);
@@ -154,7 +150,6 @@ const Trip = () => {
 
     const [error, setError] = useState(null); 
 
-    // Функция по нахождению кол-ва дней в месяце
     const daysInMonth = (month) => {
         let daysInMonth = new Date(selectedYear_1, +month + 1, 0).getDate(); // кол-во дней в месяце 
         let arr = [];
@@ -238,7 +233,6 @@ const Trip = () => {
 
     // Функция для удаления поездки
     const handleDeleteTrip = () => {
-        // Подтверждение от пользователя
         const confirmed = window.confirm(
             `Вы уверены, что хотите удалить поездку "${trip.name || 'Unnamed'}"?\n` +
             `Все заметки этой поездки тоже будут удалены.`
@@ -267,7 +261,17 @@ const Trip = () => {
                 <h2>Поездка</h2>
             </div>
             <div>
-                <p><strong>Страна</strong>: {trip.name ? trip.name : <i>unnamed</i>}</p>
+                <p>
+                    <strong>Страна</strong>: {trip.name ? trip.name : <i>unnamed</i>}
+                    {trip.name && countryCodes[trip.name] && (
+                        <img
+                            className={styles.flag}
+                            src={`https://flagsapi.com/${countryCodes[trip.name]}/shiny/64.png`}
+                            alt={`Флаг: ${trip.name}`}
+                            title={trip.name}
+                        />
+                    )}
+                </p>
             </div>
             <div>
                 <p><strong>Даты пребывания</strong>: {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}-{trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} </p>
