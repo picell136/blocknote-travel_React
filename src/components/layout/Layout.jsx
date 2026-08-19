@@ -71,7 +71,13 @@ const Layout = () => {
 
   return (
     <div className={styles.layout}>
-      <img className={styles.bigLogo} src={myJourneyLogo} alt="My Journey" />
+      <Box
+        component="img"
+        className={styles.bigLogo}
+        src={myJourneyLogo}
+        alt="My Journey"
+        sx={{ display: { xs: 'none', md: 'block' } }}
+      />
       <AppBar 
         position="sticky" 
       sx={{
