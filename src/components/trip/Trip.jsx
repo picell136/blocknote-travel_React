@@ -489,6 +489,7 @@ const Trip = () => {
                 <DialogContent>
                     <DialogContentText id="delete-note-dialog-description">
                         Вы уверены, что хотите удалить заметку «{noteToDelete?.name || 'Без названия'}»?
+                        <br/>
                         Это действие нельзя отменить.
                     </DialogContentText>
                 </DialogContent>
