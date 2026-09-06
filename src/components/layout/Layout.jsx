@@ -76,7 +76,7 @@ const Layout = () => {
         className={styles.bigLogo}
         src={myJourneyLogo}
         alt="My Journey"
-        sx={{ display: { xs: 'none', md: 'block' } }}
+        sx={{ display: { xs: 'none', lg: 'block' } }}
       />
       <AppBar 
         position="sticky" 
