@@ -149,7 +149,7 @@ const Layout = () => {
 
       <div className={styles.container}>
         {isLoginPage ? (
-          <Outlet />
+            <Outlet />
         ) : (
           <div className={styles.subcontainer}>
             <Outlet />
