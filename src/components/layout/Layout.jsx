@@ -9,13 +9,17 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { AUTH_CHANGE_EVENT, getCurrentUser, logout } from '../../auth';
 import styles from "../../styles/Layout.module.css";
 import myJourneyLogo from '../../images/my_journey_.png';
 
 const Layout = () => {
+
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+  
   const navigate = useNavigate();
 
   const [user, setUser] = React.useState(getCurrentUser);
@@ -144,9 +148,13 @@ const Layout = () => {
       </AppBar>
 
       <div className={styles.container}>
-        <div className={styles.subcontainer}>
+        {isLoginPage ? (
           <Outlet />
-        </div>
+        ) : (
+          <div className={styles.subcontainer}>
+            <Outlet />
+          </div>
+        )}
       </div>
     </div>
   );
