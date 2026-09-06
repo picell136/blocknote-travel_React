@@ -301,6 +301,7 @@ const Trip = () => {
                 <DialogContent>
                     <DialogContentText id="delete-trip-dialog-description">
                         Вы уверены, что хотите удалить поездку «{trip.name || 'Без названия'}»?
+                        <br/>
                         Все заметки этой поездки также будут удалены без возможности восстановления.
                     </DialogContentText>
                 </DialogContent>
