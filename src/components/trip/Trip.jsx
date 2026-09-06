@@ -2,6 +2,11 @@ import React, { useRef, useState, useEffect } from 'react'
 import { getTrip, getNotes, createNote, savePhoto, deleteNote, deleteTrip } from '../../forStorage';
 import { Outlet, useLoaderData, useNavigate, Link, useSubmit, useActionData } from 'react-router-dom';
 import { Form, redirect } from 'react-router-dom';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import styles from "../../styles/Trip.module.css"; 
 import countryCodes from '../../data/countryCodes.js';
@@ -113,6 +118,7 @@ const Trip = () => {
     const [photos, setPhotos] = useState([]); 
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
     // Обновляем заметки когда приходят новые данные из action
     useEffect(() => {
@@ -231,18 +237,10 @@ const Trip = () => {
         submit(formData, { method: 'post' });
     };
 
-    // Функция для удаления поездки
-    const handleDeleteTrip = () => {
-        const confirmed = window.confirm(
-            `Вы уверены, что хотите удалить поездку "${trip.name || 'Unnamed'}"?\n` +
-            `Все заметки этой поездки тоже будут удалены.`
-        );
-        
-        if (!confirmed) return;
-
+    const handleConfirmDeleteTrip = () => {
+        setIsDeleteDialogOpen(false);
         const formData = new FormData();
         formData.append('intent', 'delete_trip');
-        
         submit(formData, { method: 'post' });
     };
 
@@ -282,12 +280,37 @@ const Trip = () => {
                     Редактировать поездку
                 </button>
                 <button 
-                    onClick={handleDeleteTrip}
+                    onClick={() => setIsDeleteDialogOpen(true)}
                     className={styles.deleteButton}
                 >
                     🗑️ Удалить поездку
                 </button>                
             </div>
+
+            <Dialog
+                open={isDeleteDialogOpen}
+                onClose={() => setIsDeleteDialogOpen(false)}
+                aria-labelledby="delete-trip-dialog-title"
+                aria-describedby="delete-trip-dialog-description"
+            >
+                <DialogTitle id="delete-trip-dialog-title">
+                    Удалить поездку?
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="delete-trip-dialog-description">
+                        Вы уверены, что хотите удалить поездку «{trip.name || 'Без названия'}»?
+                        Все заметки этой поездки также будут удалены без возможности восстановления.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <button type="button" onClick={() => setIsDeleteDialogOpen(false)}>
+                        Отмена
+                    </button>
+                    <button type="button" onClick={handleConfirmDeleteTrip} className={styles.deleteButton}>
+                        Удалить
+                    </button>
+                </DialogActions>
+            </Dialog>
 
             <hr></hr>
 
