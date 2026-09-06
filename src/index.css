@@ -69,9 +69,11 @@ textarea {
 
 select {
   margin: 1px;
-  padding: 1px;
+  min-height: 40px;
+  padding: 7px 10px;
   border-radius: 7px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 400;
   max-width: 100%;
 }
 
