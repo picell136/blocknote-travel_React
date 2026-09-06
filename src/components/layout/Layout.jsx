@@ -5,28 +5,20 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
+import { getCurrentUser, logout } from '../../auth';
 import styles from "../../styles/Layout.module.css";
 import myJourneyLogo from '../../images/my_journey_.png';
-
-
-const YANDEX_CLIENT_ID = 'c49b3c44d22e4ed2a4653b74253643d6';
-const REDIRECT_URI = `${window.location.origin}/blocknote-travel_React/auth/callback`;
 
 const Layout = () => {
   const navigate = useNavigate();
 
-  // Состояние пользователя (пока храним в localStorage для простоты)
-  const [user, setUser] = React.useState(() => {
-    const saved = localStorage.getItem('yandex_user');
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [user, setUser] = React.useState(getCurrentUser);
 
   // Состояния для меню
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -34,40 +26,29 @@ const Layout = () => {
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
-  // Функция входа через Яндекс
-  const handleYandexLogin = () => {
+  const handleLogin = () => {
     handleCloseUserMenu();
-
-    const state = crypto.randomUUID();
-    sessionStorage.setItem('yandex_oauth_state', state);
-
-    const params = new URLSearchParams({
-      response_type: 'code',
-      client_id: YANDEX_CLIENT_ID,
-      redirect_uri: REDIRECT_URI,
-      state,
-    });
-
-    window.location.href = `https://oauth.yandex.ru/authorize?${params}`;
+    navigate('/login');
   };
 
-  // Функция выхода
   const handleLogout = () => {
     handleCloseUserMenu();
-    localStorage.removeItem('yandex_user');
+    logout();
     setUser(null);
-    navigate('/');
+    navigate('/login');
   };
 
-  // Формируем пункты меню в зависимости от авторизации
   const userMenuItems = user
     ? [
-        { label: 'Профиль', action: () => { handleCloseUserMenu(); navigate('/profile'); } },
         { label: 'Выйти', action: handleLogout },
       ]
     : [
-        { label: 'Войти через Яндекс', action: handleYandexLogin },
+        { label: 'Войти', action: handleLogin },
       ];
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className={styles.layout}>
@@ -124,12 +105,13 @@ const Layout = () => {
 
             {/* Аватар / Кнопка пользователя */}
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title={user ? `Вы вошли как ${user.first_name}` : 'Открыть меню'}>
+              <Tooltip title={`Вы вошли как ${user.name}`}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt={user ? user.first_name : 'Гость'}
-                    src={user?.avatar_url || '/static/images/avatar/2.jpg'}
-                  />
+                    alt={user.name}
+                  >
+                    {user.name.charAt(0).toUpperCase()}
+                  </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu

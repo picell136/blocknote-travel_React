@@ -7,7 +7,6 @@ import './index.css';
 import Layout from './components/layout/Layout';
 
 import Login from './components/login/Login';
-import AuthCallback from './components/authCallback/AuthCallback';
 
 import Home, {
     loader as rootLoader,
@@ -37,10 +36,6 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
-    },
-    {
-        path: '/auth/callback',
-        element: <AuthCallback />,
     },
     {
         path: '/',
