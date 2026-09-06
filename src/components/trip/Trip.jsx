@@ -119,6 +119,7 @@ const Trip = () => {
     const [name, setName] = useState('');
     const [desc, setDesc] = useState('');
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [noteToDelete, setNoteToDelete] = useState(null);
 
     // Обновляем заметки когда приходят новые данные из action
     useEffect(() => {
@@ -244,12 +245,13 @@ const Trip = () => {
         submit(formData, { method: 'post' });
     };
 
-    // Функция для удаления заметки
-    const handleDeleteNote = (noteId) => {
+    const handleConfirmDeleteNote = () => {
+        if (!noteToDelete) return;
+
         const formData = new FormData();
         formData.append('intent', 'delete_note');
-        formData.append('noteId', noteId);
-        
+        formData.append('noteId', noteToDelete.id);
+        setNoteToDelete(null);
         submit(formData, { method: 'post' });
     };
 
@@ -338,7 +340,7 @@ const Trip = () => {
                                     />
                                 )}
 
-                                <button onClick={() => handleDeleteNote(note.id)}>
+                                <button onClick={() => setNoteToDelete(note)}>
                                     Удалить
                                 </button>
 
@@ -474,6 +476,31 @@ const Trip = () => {
                     <button type="button" style={{width: 'auto'}} onClick={() => navigate(`/`)}>Назад</button>
                 </div>
             </Form>
+
+            <Dialog
+                open={Boolean(noteToDelete)}
+                onClose={() => setNoteToDelete(null)}
+                aria-labelledby="delete-note-dialog-title"
+                aria-describedby="delete-note-dialog-description"
+            >
+                <DialogTitle id="delete-note-dialog-title">
+                    Удалить заметку?
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="delete-note-dialog-description">
+                        Вы уверены, что хотите удалить заметку «{noteToDelete?.name || 'Без названия'}»?
+                        Это действие нельзя отменить.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <button type="button" onClick={() => setNoteToDelete(null)}>
+                        Отмена
+                    </button>
+                    <button type="button" onClick={handleConfirmDeleteNote} className={styles.deleteButton}>
+                        Удалить
+                    </button>
+                </DialogActions>
+            </Dialog>
 
             <input
                 type="file"
