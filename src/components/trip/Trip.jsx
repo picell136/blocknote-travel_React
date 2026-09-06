@@ -277,7 +277,7 @@ const Trip = () => {
                 <p><strong>Даты пребывания</strong>: {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}-{trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} </p>
             </div>
             
-            <div>
+            <div className={styles.tripActions}>
                 <button onClick={() => navigate('edit')}>
                     Редактировать поездку
                 </button>
@@ -340,7 +340,7 @@ const Trip = () => {
                 </>
             )}
 
-            <div>
+            <div className={styles.dateSelects}>
                 <label>
                     <select 
                         value={selectedDay_1} 
@@ -382,7 +382,7 @@ const Trip = () => {
                 </label>
             </div>
 
-            <Form method="post" onSubmit={handleSubmit}>
+            <Form method="post" onSubmit={handleSubmit} className={styles.noteForm}>
                 <div>
                     <span><strong>Заметка:</strong></span>
                     <input 
@@ -408,13 +408,13 @@ const Trip = () => {
                 
                 <input type="hidden" name="photos" value={photos.join('###_SEPARATOR_###')} />
 
-                <div>
+                <div className={styles.photoPreview}>
                     {photos.map((photo, index) => (
                         <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
                             <img
                                 src={photo}
                                 alt={`preview ${index}`}
-                                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                style={{ width: 'min(100px, 30vw)', height: 'min(100px, 30vw)', objectFit: 'cover' }}
                             />
                             <button
                                 type="button"

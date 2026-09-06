@@ -81,13 +81,13 @@ const Layout = () => {
       <AppBar 
         position="sticky" 
       sx={{
-        top: '25px', 
+        top: { xs: '10px', md: '25px' },
         margin: '0 auto',
         left: 0,     
         right: 0,    
-        width: '95%',
+        width: { xs: '98%', md: '95%' },
         border: '1px solid rgba(255, 255, 255, 0.55)',
-        borderRadius: '24px',
+        borderRadius: { xs: '16px', md: '24px' },
         background: 'rgba(255, 255, 255, 0.35)',
         boxShadow: '0 12px 40px rgba(10, 40, 70, 0.25)',
         WebkitBackdropFilter: 'blur(14px) saturate(1.2)',
@@ -95,9 +95,10 @@ const Layout = () => {
         color: '#041b4d', 
       }}
         >
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{ px: { xs: 1, sm: 2 } }}>
           <Toolbar 
             disableGutters
+            sx={{ minHeight: { xs: 56, md: 64 }, py: { xs: 0.5, md: 0 } }}
           >
             {/* Логотип для десктопа */}
             <img className={styles.logo} src={myJourneyLogo} alt="My Journey" />

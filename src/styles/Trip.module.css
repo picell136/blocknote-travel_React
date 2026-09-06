@@ -1,14 +1,17 @@
 .noteItem {
   display: flex;
-  align-items: center;     /* центрирование по вертикали */
-  gap: 10px;               /* равные промежутки между элементами */
-  flex-wrap: wrap;         /* перенос на новую строку при нехватке места */
-  margin-bottom: 10px;     /* небольшой отступ между заметками */
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .noteItem a {
   text-decoration: none;
   color: inherit;
+  word-break: break-word;
 }
 
 .actions {
@@ -21,7 +24,8 @@
 
 .actions button {
   margin-left: 0;           
-  width: 250px;             
+  width: 250px;
+  max-width: 100%;
 }
 
 button {
@@ -36,12 +40,14 @@ button {
 
 textarea {
   margin-top: 3px;
+  width: 100%;
   max-width: 300px;
   max-height: 200px;
-  min-width: 200px;
+  min-width: 0;
   min-height: 100px;
-  resize: horizontal;  
+  resize: vertical;
   font-size: large;
+  box-sizing: border-box;
 }
 
 .deleteButton {
@@ -49,7 +55,7 @@ textarea {
   background-color: #ff4444; 
   color: white;
   border: none;
-  padding: 8px, 16px;
+  padding: 8px 16px;
   cursor: pointer;
 }
 
@@ -59,6 +65,7 @@ textarea {
   color: white;
   border-radius: 20px;
   width: 80%;
+  max-width: 100%;
   border: none;
   background-image: linear-gradient(to right, #080bbb, #098dc2);
 }
@@ -68,4 +75,78 @@ textarea {
   height: auto;
   margin-left: 10px;
   vertical-align: middle;
+}
+
+.tripActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dateSelects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+.noteForm input[type="text"] {
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+.photoPreview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .actions button {
+    width: 100%;
+  }
+
+  .addNoteButton {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  textarea {
+    max-width: 100%;
+  }
+
+  .deleteButton {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .noteItem {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .noteItem button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .tripActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tripActions button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .flag {
+    width: 40px;
+    margin-left: 4px;
+  }
 }

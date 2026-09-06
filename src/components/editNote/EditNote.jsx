@@ -212,7 +212,7 @@ const EditNote = () => {
                             <img
                                 src={photo}
                                 alt={`preview ${index}`}
-                                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                                style={{ width: 'min(150px, 40vw)', height: 'min(150px, 40vw)', objectFit: 'cover' }}
                             />
                             {/* Кнопка удаления */}
                             <button
@@ -242,7 +242,7 @@ const EditNote = () => {
                     ))}
                 </div>
 				
-				<div style={{ marginTop: '10px' }}>
+				<div className={styles.formActions}>
 					<button 
                         type="submit"
                     >
@@ -251,7 +251,6 @@ const EditNote = () => {
 					<button 
 						type="button" 
 						onClick={() => navigate(`/trips/${tripId}/${note.id}`)}
-						style={{ marginLeft: '10px' }}
 					>
 						Отмена
 					</button>

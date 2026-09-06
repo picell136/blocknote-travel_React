@@ -2,6 +2,8 @@ import React from 'react'
 import { getNote } from '../../forStorage';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 
+import styles from "../../styles/ShowNote.module.css";
+
 export async function loader({ params }) {
   const note = await getNote(params.noteId);
   if (!note) {
@@ -26,27 +28,25 @@ const ShowNote = () => {
             {note.photos && note.photos.length > 0 && (
                 <div>
                     <h4>Фото / изображения:</h4>
-                    {note.photos.map((photo, index) => (
-                    <img 
-                        key={index}
-                        src={photo} 
-                        alt={`photo ${index + 1}`}
-                        style={{ width: '400px', margin: '5px' }}
-                    />
-                    ))}
+                    <div className={styles.photos}>
+                        {note.photos.map((photo, index) => (
+                        <img 
+                            key={index}
+                            className={styles.photo}
+                            src={photo} 
+                            alt={`photo ${index + 1}`}
+                        />
+                        ))}
+                    </div>
                 </div>
             )}
 
-            <p>
-                {/* <button onClick={() => navigate('edit')}> */}
+            <div className={styles.actions}>
                 <button onClick={() => navigate(`/trips/${tripId}/${note.id}/edit`)}> 
                     Редактировать
                 </button>                
-            </p>
-            
-            <p>
-              <button onClick={() => navigate(`/trips/${tripId}`)}>Назад</button>  
-            </p>
+                <button onClick={() => navigate(`/trips/${tripId}`)}>Назад</button>  
+            </div>
 
         </>
     );

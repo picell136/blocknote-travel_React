@@ -6,6 +6,10 @@
 }
 
 .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
   padding: 10px;
 }
 
@@ -13,6 +17,41 @@
   z-index: 2;
 }
 
-img {
+.gallery img {
+  max-width: 100%;
+  height: auto;
   padding: 6px;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  max-width: 300px;
+  min-height: 100px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  textarea {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .formActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .formActions button {
+    width: 100%;
+    margin-left: 0 !important;
+  }
 }
