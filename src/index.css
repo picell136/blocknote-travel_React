@@ -68,9 +68,13 @@ textarea {
 }
 
 select {
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   margin: 1px;
-  min-height: 40px;
-  padding: 7px 10px;
+  min-height: 30px;
+  padding: 2px 3px;
+  border: 1px solid rgb(172, 166, 166);
   border-radius: 7px;
   font-size: 1rem;
   font-weight: 400;

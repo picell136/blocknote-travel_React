@@ -144,13 +144,17 @@ li {
   }
 
   .selects {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
   }
 
   .selects_text {
-    width: 100%;
-    text-align: left;
+    width: auto;
+    text-align: initial;
+    white-space: nowrap;
   }
 
   .addButton {

@@ -160,7 +160,7 @@ const Home = () => {
 
                 <div className={styles.selects_dates}>
                     <div className={styles.title}>Выберите период пребывания</div>        
-                    <div>
+                    <div className={styles.selects}>
                         <div className={styles.selects_text}> От: </div>
                         <label>
                             <select 
