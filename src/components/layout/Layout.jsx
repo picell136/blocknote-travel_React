@@ -109,7 +109,7 @@ const Layout = () => {
               href="/blocknote-travel_React/"
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
+                display: { md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
@@ -120,7 +120,7 @@ const Layout = () => {
               MY_JOURNEY
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} />
+            <Box sx={{ flexGrow: 1, display: { md: 'flex' } }} />
 
             {/* Аватар / Кнопка пользователя */}
             <Box sx={{ flexGrow: 0 }}>
