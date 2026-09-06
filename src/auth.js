@@ -1,5 +1,10 @@
 const USERS_KEY = 'my_journey_users';
 const CURRENT_USER_KEY = 'my_journey_user';
+export const AUTH_CHANGE_EVENT = 'my-journey-auth-change';
+
+function notifyAuthChange() {
+  window.dispatchEvent(new Event(AUTH_CHANGE_EVENT));
+}
 
 function getUsers() {
   try {
@@ -29,6 +34,7 @@ export function getCurrentUser() {
 
 export function logout() {
   localStorage.removeItem(CURRENT_USER_KEY);
+  notifyAuthChange();
 }
 
 export async function register({ name, email, password }) {
@@ -52,6 +58,7 @@ export async function register({ name, email, password }) {
   localStorage.setItem(USERS_KEY, JSON.stringify([...users, user]));
   const currentUser = { id: user.id, name: user.name, email: user.email };
   localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(currentUser));
+  notifyAuthChange();
   return currentUser;
 }
 
@@ -65,5 +72,6 @@ export async function login({ email, password }) {
 
   const currentUser = { id: user.id, name: user.name, email: user.email };
   localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(currentUser));
+  notifyAuthChange();
   return currentUser;
 }

@@ -9,9 +9,9 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
-import { getCurrentUser, logout } from '../../auth';
+import { AUTH_CHANGE_EVENT, getCurrentUser, logout } from '../../auth';
 import styles from "../../styles/Layout.module.css";
 import myJourneyLogo from '../../images/my_journey_.png';
 
@@ -22,6 +22,18 @@ const Layout = () => {
 
   // Состояния для меню
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  React.useEffect(() => {
+    const updateUser = () => setUser(getCurrentUser());
+
+    window.addEventListener(AUTH_CHANGE_EVENT, updateUser);
+    window.addEventListener('storage', updateUser);
+
+    return () => {
+      window.removeEventListener(AUTH_CHANGE_EVENT, updateUser);
+      window.removeEventListener('storage', updateUser);
+    };
+  }, []);
 
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
   const handleCloseUserMenu = () => setAnchorElUser(null);
@@ -45,10 +57,6 @@ const Layout = () => {
     : [
         { label: 'Войти', action: handleLogin },
       ];
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
 
   return (
     <div className={styles.layout}>
@@ -105,12 +113,12 @@ const Layout = () => {
 
             {/* Аватар / Кнопка пользователя */}
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title={`Вы вошли как ${user.name}`}>
+              <Tooltip title={user ? `Вы вошли как ${user.name}` : 'Открыть меню'}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt={user.name}
+                    alt={user?.name || 'Гость'}
                   >
-                    {user.name.charAt(0).toUpperCase()}
+                    {user ? user.name.charAt(0).toUpperCase() : 'Г'}
                   </Avatar>
                 </IconButton>
               </Tooltip>
