@@ -72,7 +72,7 @@ const Layout = () => {
         sx={{ display: { xs: 'none', lg: 'block' } }}
       />
       <AppBar 
-        position="sticky" 
+        position="relative" 
       sx={{
         top: { xs: '10px', md: '25px' },
         margin: '0 auto',
