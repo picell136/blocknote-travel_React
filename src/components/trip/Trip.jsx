@@ -168,6 +168,12 @@ const Trip = () => {
         return arr   
     }
 
+    const shortName = (desc) => {
+        if (desc.length <= 12) return desc;
+        let truncated = desc.slice(0, 12);
+        return truncated + '...';
+    }
+
     const shortDesc = (desc) => {
         if (desc.length <= 7) return desc;
         let truncated = desc.slice(0, 7);
@@ -329,7 +335,7 @@ const Trip = () => {
                                     <li className={styles.noteItem}>
                                         <Link to={`/trips/${trip.id}/${note.id}`}>
                                             {note.year}/{+note.month + 1}/{note.day} 
-                                            {note.name ? ` ${note.name} ` : <i>Unnamed</i>} 
+                                            {note.name ? ` ${shortName(note.name)} ` : <i>Unnamed</i>} 
                                             {note.desc ? ` ${shortDesc(note.desc)} ` : <i>No description</i>}
                                         </Link>
 
