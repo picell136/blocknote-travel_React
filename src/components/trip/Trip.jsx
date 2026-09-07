@@ -257,267 +257,267 @@ const Trip = () => {
 
     return (
         <>
-            <div>
-                <h2>Поездка</h2>
-            </div>
-            <div>
-                <p>
-                    <strong>Страна</strong>: {trip.name ? trip.name : <i>unnamed</i>}
-                    {trip.name && countryCodes[trip.name] && (
-                        <img
-                            className={styles.flag}
-                            src={`https://flagsapi.com/${countryCodes[trip.name]}/shiny/64.png`}
-                            alt={`Флаг: ${trip.name}`}
-                            title={trip.name}
-                        />
-                    )}
-                </p>
-            </div>
-            <div>
-                <p><strong>Даты пребывания</strong>: {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}-{trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} </p>
-            </div>
-            
-            <div className={styles.tripActions}>
-                <button onClick={() => navigate('edit')}>
-                    Редактировать поездку
-                </button>
-                <button 
-                    onClick={() => setIsDeleteDialogOpen(true)}
-                    className={styles.deleteButton}
+            <div className={styles.tripPage}>
+                <section className={styles.card}>
+                    <h2>Поездка</h2>
+                    <div>
+                        <p>
+                            <strong>Страна</strong>: {trip.name ? trip.name : <i>unnamed</i>}
+                            {trip.name && countryCodes[trip.name] && (
+                                <img
+                                    className={styles.flag}
+                                    src={`https://flagsapi.com/${countryCodes[trip.name]}/shiny/64.png`}
+                                    alt={`Флаг: ${trip.name}`}
+                                    title={trip.name}
+                                />
+                            )}
+                        </p>
+                    </div>
+                    <div>
+                        <p><strong>Даты пребывания</strong>: {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}-{trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} </p>
+                    </div>
+                    
+                    <div className={styles.tripActions}>
+                        <button onClick={() => navigate('edit')}>
+                            Редактировать поездку
+                        </button>
+                        <button 
+                            onClick={() => setIsDeleteDialogOpen(true)}
+                            className={styles.deleteButton}
+                        >
+                            🗑️ Удалить поездку
+                        </button>                
+                    </div>
+                </section>
+
+                <Dialog
+                    open={isDeleteDialogOpen}
+                    onClose={() => setIsDeleteDialogOpen(false)}
+                    aria-labelledby="delete-trip-dialog-title"
+                    aria-describedby="delete-trip-dialog-description"
                 >
-                    🗑️ Удалить поездку
-                </button>                
-            </div>
+                    <DialogTitle id="delete-trip-dialog-title">
+                        Удалить поездку?
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="delete-trip-dialog-description">
+                            Вы уверены, что хотите удалить поездку «{trip.name || 'Без названия'}»?
+                            <br/>
+                            Все заметки этой поездки также будут удалены без возможности восстановления.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <button type="button" onClick={() => setIsDeleteDialogOpen(false)}>
+                            Отмена
+                        </button>
+                        <button type="button" onClick={handleConfirmDeleteTrip} className={styles.deleteButton}>
+                            Удалить
+                        </button>
+                    </DialogActions>
+                </Dialog>
 
-            <Dialog
-                open={isDeleteDialogOpen}
-                onClose={() => setIsDeleteDialogOpen(false)}
-                aria-labelledby="delete-trip-dialog-title"
-                aria-describedby="delete-trip-dialog-description"
-            >
-                <DialogTitle id="delete-trip-dialog-title">
-                    Удалить поездку?
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="delete-trip-dialog-description">
-                        Вы уверены, что хотите удалить поездку «{trip.name || 'Без названия'}»?
-                        <br/>
-                        Все заметки этой поездки также будут удалены без возможности восстановления.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <button type="button" onClick={() => setIsDeleteDialogOpen(false)}>
-                        Отмена
-                    </button>
-                    <button type="button" onClick={handleConfirmDeleteTrip} className={styles.deleteButton}>
-                        Удалить
-                    </button>
-                </DialogActions>
-            </Dialog>
+                <section className={styles.card}>
+                    <h2>Заметки</h2>
 
-            <hr></hr>
+                    {notes && notes.length > 0 ? (
+                        <>
+                        <ul>
+                            {notes.map((note) => (
+                                <React.Fragment key={note.id}>
+                                    <li className={styles.noteItem}>
+                                        <Link to={`/trips/${trip.id}/${note.id}`}>
+                                            {note.year}/{+note.month + 1}/{note.day} 
+                                            {note.name ? ` ${note.name} ` : <i>Unnamed</i>} 
+                                            {note.desc ? ` ${shortDesc(note.desc)} ` : <i>No description</i>}
+                                        </Link>
 
-            <div>
-                <h2>Заметки</h2>
-            </div>
+                                        {note.photos && note.photos.length > 0 && (
+                                            <img
+                                                src={note.photos[0]}
+                                                alt="preview"
+                                                style={{ maxHeight: '75px', objectFit: 'cover' }}
+                                            />
+                                        )}
 
-            {notes && notes.length > 0 ? (
-                <>
-                <ul>
-                    {notes.map((note) => (
-                        <React.Fragment key={note.id}>
-                            <li className={styles.noteItem}>
-                                <Link to={`/trips/${trip.id}/${note.id}`}>
-                                    {note.year}/{+note.month + 1}/{note.day} 
-                                    {note.name ? ` ${note.name} ` : <i>Unnamed</i>} 
-                                    {note.desc ? ` ${shortDesc(note.desc)} ` : <i>No description</i>}
-                                </Link>
+                                        <button onClick={() => setNoteToDelete(note)}>
+                                            Удалить
+                                        </button>
 
-                                {note.photos && note.photos.length > 0 && (
-                                    <img
-                                        src={note.photos[0]}
-                                        alt="preview"
-                                        style={{ maxHeight: '75px', objectFit: 'cover' }}
-                                    />
-                                )}
+                                        <button 
+                                            onClick={() => navigate(`${note.id}/edit`)}
+                                            className={styles.button}
+                                        >
+                                            Редактировать заметку
+                                        </button>
+                                    </li>
+                                </React.Fragment>
+                            ))}
+                        </ul>
+                        </>
+                    ) : (
+                        <>
+                            <p>
+                                <i>здесь нет заметок ...</i>
+                            </p>
+                        </>
+                    )}
+                </section>
 
-                                <button onClick={() => setNoteToDelete(note)}>
-                                    Удалить
-                                </button>
+                <h2>Добавить заметку</h2>
 
-                                <button 
-                                    onClick={() => navigate(`${note.id}/edit`)}
-                                    className={styles.button}
+                <div className={styles.dateSelects}>
+                    <label>
+                        <select 
+                            value={selectedDay_1} 
+                            name="day" 
+                            onChange={e => setSelectedDay_1(e.target.value)}
+                        >
+                            {daysInMonth(selectedMonth_1).map(i => (
+                            <option key={i} value={i}>
+                                {i}
+                            </option>
+                            ))}
+                        </select>
+                    </label>
+                    <label>
+                        <select 
+                            value={selectedMonth_1}
+                            name="month"
+                            onChange={e => setSelectedMonth_1(e.target.value)}
+                        >
+                            {monthOptions.map(month => (
+                            <option key={month.value} value={month.value}>
+                                {month.text}
+                            </option>
+                            ))}
+                        </select>
+                    </label>
+                    <label>
+                        <select 
+                            value={selectedYear_1}
+                            name="year"
+                            onChange={e => setSelectedYear_1(e.target.value)}
+                        >
+                            {yearOptions.map(year => (
+                            <option key={year.value} value={year.value}>
+                                {year.text}
+                            </option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+
+                <Form method="post" onSubmit={handleSubmit} className={styles.noteForm}>
+                    <div>
+                        <span><strong>Заметка:</strong></span>
+                        <input 
+                            placeholder="Название заметки" 
+                            type="text" 
+                            name="name" 
+                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <span className={styles.desc}><strong>Описание:</strong></span>
+                        <textarea
+                            placeholder="Описание"
+                            type="text"
+                            name="desc"
+                            required
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
+                        />
+                    </div>
+                    
+                    <input type="hidden" name="photos" value={photos.join('###_SEPARATOR_###')} />
+
+                    <div className={styles.photoPreview}>
+                        {photos.map((photo, index) => (
+                            <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+                                <img
+                                    src={photo}
+                                    alt={`preview ${index}`}
+                                    style={{ width: 'min(100px, 30vw)', height: 'min(100px, 30vw)', objectFit: 'cover' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setPhotos(prev => prev.filter((_, i) => i !== index))}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '-5px',
+                                        right: '-5px',
+                                        background: 'red',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '50%',
+                                        width: '20px',
+                                        height: '20px',
+                                        cursor: 'pointer',
+                                        fontSize: '12px',
+                                        lineHeight: '20px',
+                                        textAlign: 'center',
+                                        padding: 0,
+                                    }}
                                 >
-                                    Редактировать заметку
+                                    ×
                                 </button>
-                            </li>
-                        </React.Fragment>
-                    ))}
-                </ul>
-                <hr />
-                </>
-            ) : (
-                <>
-                    <p>
-                        <i>здесь нет заметок ...</i>
-                    </p>
-                    <hr />
-                </>
-            )}
+                            </div>
+                        ))}
+                    </div>
 
-            <div className={styles.dateSelects}>
-                <label>
-                    <select 
-                        value={selectedDay_1} 
-                        name="day" 
-                        onChange={e => setSelectedDay_1(e.target.value)}
-                    >
-                        {daysInMonth(selectedMonth_1).map(i => (
-                        <option key={i} value={i}>
-                            {i}
-                        </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <select 
-                        value={selectedMonth_1}
-                        name="month"
-                        onChange={e => setSelectedMonth_1(e.target.value)}
-                    >
-                        {monthOptions.map(month => (
-                        <option key={month.value} value={month.value}>
-                            {month.text}
-                        </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <select 
-                        value={selectedYear_1}
-                        name="year"
-                        onChange={e => setSelectedYear_1(e.target.value)}
-                    >
-                        {yearOptions.map(year => (
-                        <option key={year.value} value={year.value}>
-                            {year.text}
-                        </option>
-                        ))}
-                    </select>
-                </label>
+                    {/* Общий контейнер для всех трёх кнопок */}
+                    <div className={styles.actions}>
+                        <button type="button" onClick={() => fileInputRef.current.click()}>
+                            Добавить фото
+                        </button>
+                        <button type="submit" className={styles.addNoteButton}>Добавить заметку</button>
+                        <button type="button" style={{width: 'auto'}} onClick={() => navigate(`/`)}>Назад</button>
+                    </div>
+                </Form>
+
+                <Dialog
+                    open={Boolean(noteToDelete)}
+                    onClose={() => setNoteToDelete(null)}
+                    aria-labelledby="delete-note-dialog-title"
+                    aria-describedby="delete-note-dialog-description"
+                >
+                    <DialogTitle id="delete-note-dialog-title">
+                        Удалить заметку?
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="delete-note-dialog-description">
+                            Вы уверены, что хотите удалить заметку «{noteToDelete?.name || 'Без названия'}»?
+                            <br/>
+                            Это действие нельзя отменить.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <button type="button" onClick={() => setNoteToDelete(null)}>
+                            Отмена
+                        </button>
+                        <button type="button" onClick={handleConfirmDeleteNote} className={styles.deleteButton}>
+                            Удалить
+                        </button>
+                    </DialogActions>
+                </Dialog>
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    multiple   
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                />
+
+                {error && (
+                    <div style={{ color: 'red', padding: '10px', marginTop: '10px' }}>
+                        ⚠️ {error}
+                    </div>
+                )}
             </div>
-
-            <Form method="post" onSubmit={handleSubmit} className={styles.noteForm}>
-                <div>
-                    <span><strong>Заметка:</strong></span>
-                    <input 
-                        placeholder="Название заметки" 
-                        type="text" 
-                        name="name" 
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <span className={styles.desc}><strong>Описание:</strong></span>
-                    <textarea
-                        placeholder="Описание"
-                        type="text"
-                        name="desc"
-                        required
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                    />
-                </div>
-                
-                <input type="hidden" name="photos" value={photos.join('###_SEPARATOR_###')} />
-
-                <div className={styles.photoPreview}>
-                    {photos.map((photo, index) => (
-                        <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
-                            <img
-                                src={photo}
-                                alt={`preview ${index}`}
-                                style={{ width: 'min(100px, 30vw)', height: 'min(100px, 30vw)', objectFit: 'cover' }}
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setPhotos(prev => prev.filter((_, i) => i !== index))}
-                                style={{
-                                    position: 'absolute',
-                                    top: '-5px',
-                                    right: '-5px',
-                                    background: 'red',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '50%',
-                                    width: '20px',
-                                    height: '20px',
-                                    cursor: 'pointer',
-                                    fontSize: '12px',
-                                    lineHeight: '20px',
-                                    textAlign: 'center',
-                                    padding: 0,
-                                }}
-                            >
-                                ×
-                            </button>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Общий контейнер для всех трёх кнопок */}
-                <div className={styles.actions}>
-                    <button type="button" onClick={() => fileInputRef.current.click()}>
-                        Добавить фото
-                    </button>
-                    <button type="submit" className={styles.addNoteButton}>Добавить заметку</button>
-                    <button type="button" style={{width: 'auto'}} onClick={() => navigate(`/`)}>Назад</button>
-                </div>
-            </Form>
-
-            <Dialog
-                open={Boolean(noteToDelete)}
-                onClose={() => setNoteToDelete(null)}
-                aria-labelledby="delete-note-dialog-title"
-                aria-describedby="delete-note-dialog-description"
-            >
-                <DialogTitle id="delete-note-dialog-title">
-                    Удалить заметку?
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="delete-note-dialog-description">
-                        Вы уверены, что хотите удалить заметку «{noteToDelete?.name || 'Без названия'}»?
-                        <br/>
-                        Это действие нельзя отменить.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <button type="button" onClick={() => setNoteToDelete(null)}>
-                        Отмена
-                    </button>
-                    <button type="button" onClick={handleConfirmDeleteNote} className={styles.deleteButton}>
-                        Удалить
-                    </button>
-                </DialogActions>
-            </Dialog>
-
-            <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                multiple   
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-            />
-
-            {error && (
-                <div style={{ color: 'red', padding: '10px', marginTop: '10px' }}>
-                    ⚠️ {error}
-                </div>
-            )}
         </>
     );
 }
