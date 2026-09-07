@@ -342,6 +342,7 @@ const Trip = () => {
                                         )}
 
                                         <button
+                                            className={styles.actionNoteButton}
                                             onClick={() => setNoteToDelete(note)}
                                             aria-label="Удалить заметку"
                                             title="Удалить заметку"
@@ -349,6 +350,7 @@ const Trip = () => {
                                             <DeleteIcon />
                                         </button>
                                         <button
+                                            className={styles.actionNoteButton}
                                             onClick={() => navigate(`${note.id}/edit`)}
                                             aria-label="Редактировать заметку"
                                             title="Редактировать заметку"

@@ -69,7 +69,6 @@ textarea {
   color: white;
   border: none;
   padding: 8px 16px;
-  cursor: pointer;
 }
 
 .addNoteButton {
@@ -81,6 +80,11 @@ textarea {
   max-width: 100%;
   border: none;
   background-image: linear-gradient(to right, #080bbb, #098dc2);
+}
+
+.actionNoteButton {
+  border: none;
+  padding: 4px 8px;
 }
 
 .flag {
