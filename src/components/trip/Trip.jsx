@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { getTrip, getNotes, createNote, savePhoto, deleteNote, deleteTrip } from '../../forStorage';
-import { Outlet, useLoaderData, useNavigate, Link, useSubmit, useActionData } from 'react-router-dom';
+import { useLoaderData, useNavigate, Link, useSubmit, useActionData } from 'react-router-dom';
 import { Form, redirect } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import styles from "../../styles/Trip.module.css"; 
 import countryCodes from '../../data/countryCodes.js';
@@ -339,16 +341,21 @@ const Trip = () => {
                                             />
                                         )}
 
-                                        <button onClick={() => setNoteToDelete(note)}>
-                                            Удалить
+                                        <button
+                                            onClick={() => setNoteToDelete(note)}
+                                            aria-label="Удалить заметку"
+                                            title="Удалить заметку"
+                                        >
+                                            <DeleteIcon />
+                                        </button>
+                                        <button
+                                            onClick={() => navigate(`${note.id}/edit`)}
+                                            aria-label="Редактировать заметку"
+                                            title="Редактировать заметку"
+                                        >
+                                            <EditIcon />
                                         </button>
 
-                                        <button 
-                                            onClick={() => navigate(`${note.id}/edit`)}
-                                            className={styles.button}
-                                        >
-                                            Редактировать заметку
-                                        </button>
                                     </li>
                                 </React.Fragment>
                             ))}
