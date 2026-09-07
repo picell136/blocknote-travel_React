@@ -46,9 +46,11 @@ button {
   font-size: medium;
   border-radius: 7px;
   border: 1px solid rgb(51, 46, 46);
+  transition: transform 0.2s ease;
 }
 
 button:hover {
+  transform: translateY(-3px);
   cursor: pointer;
 }
 
@@ -112,4 +114,10 @@ li {
 
 hr {
   margin: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
 }
