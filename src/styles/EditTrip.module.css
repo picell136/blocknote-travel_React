@@ -1,6 +1,21 @@
 
+.form {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.countryField {
+  display: grid;
+  gap: 8px;
+}
+
 .dates {
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
+  padding: 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .title {
@@ -23,7 +38,21 @@
 }
 
 .countries {
+  width: 100%;
   max-width: 100%;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.formActions button:first-child {
+  color: white;
+  border: 0;
+  background: var(--gradient-primary);
 }
 
 @media (max-width: 480px) {
@@ -35,5 +64,9 @@
   .selects_text {
     width: 100%;
     text-align: left;
+  }
+
+  .formActions {
+    flex-direction: column;
   }
 }

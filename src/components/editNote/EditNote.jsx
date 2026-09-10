@@ -19,7 +19,7 @@ export async function action({ request, params }) {
 	const day = formData.get('day');
 	const month = formData.get('month');
 	const year = formData.get('year');
-    const photos = JSON.parse(formData.get('photos') || '[]');
+	const photos = JSON.parse(formData.get('photos') || '[]');
 	
 	await updateNote(params.noteId, {
 		name,
@@ -27,7 +27,7 @@ export async function action({ request, params }) {
 		day,
 		month,
 		year,
-		photos
+		photos,
 	});
 	
     return redirect(`/trips/${params.tripId}/${params.noteId}`);
@@ -45,7 +45,7 @@ const EditNote = () => {
 	const [month, setMonth] = useState(note.month || '');
 	const [year, setYear] = useState(note.year || '');
 
-    const [photos, setPhotos] = useState(note.photos || []); 
+    const [photos, setPhotos] = useState(note.photos || []);
     const fileInputRef = useRef(null);
 
 	const handleSubmit = (e) => {
@@ -57,7 +57,7 @@ const EditNote = () => {
 		formData.append('day', day);
 		formData.append('month', month);
 		formData.append('year', year);
-        formData.append('photos', JSON.stringify(photos));
+		formData.append('photos', JSON.stringify(photos));
 		
 		submit(formData, { method: 'post' });
 	};
@@ -132,28 +132,28 @@ const EditNote = () => {
             <div>
                 <h2>Редактирование заметки</h2>
             </div>
-			<Form method="post" onSubmit={handleSubmit}>
-				<div>
-					<span>Название:</span>
+			<Form method="post" onSubmit={handleSubmit} className={styles.form}>
+				<label className={styles.field}>
+					<span>Название</span>
 					<input 
 						type="text" 
 						name="name"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
-				</div>
+				</label>
 				
-				<div>
-					<span className={styles.desc}>Описание:</span>
+				<label className={styles.field}>
+					<span className={styles.desc}>Описание</span>
 					<textarea 
 						type="text" 
 						name="desc"
 						value={desc}
 						onChange={(e) => setDesc(e.target.value)}
 					/>
-				</div>
+				</label>
 
-				<div>
+				<div className={styles.dateSelects}>
                     <label>
                         <select 
                             value={day} 
@@ -211,33 +211,19 @@ const EditNote = () => {
                 <div className={styles.gallery}>
                     {/* Миниатюры загруженных фото */}
                     {photos.map((photo, index) => (
-                        <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+                        <div key={index} className={styles.galleryItem}>
                             <img
                                 src={photo}
                                 alt={`preview ${index}`}
-                                style={{ width: 'min(150px, 40vw)', height: 'min(150px, 40vw)', objectFit: 'cover' }}
+                                className={styles.galleryImage}
                             />
                             {/* Кнопка удаления */}
                             <button
                                 type="button"
                                 onClick={() => setPhotos(prev => prev.filter((_, i) => i !== index))}
                                 className={styles.closeSign}
-                                style={{
-                                    position: 'absolute',
-                                    top: '-5px',
-                                    right: '-5px',
-                                    background: 'red',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '50%',
-                                    width: '20px',
-                                    height: '20px',
-                                    cursor: 'pointer',
-                                    fontSize: '12px',
-                                    lineHeight: '20px',
-                                    textAlign: 'center',
-                                    padding: 0,
-                                }}
+                                aria-label="Удалить изображение"
+                                title="Удалить изображение"
                             >
                                 ×
                             </button>

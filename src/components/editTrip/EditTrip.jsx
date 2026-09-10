@@ -103,8 +103,8 @@ const EditTrip = () => {
                 <div>
                     <h2>Редактирование поездки</h2>
                 </div>
-                <Form method="post" id="trip-form">
-                    <label>
+                <Form method="post" id="trip-form" className={styles.form}>
+                    <label className={styles.countryField}>
                         <span>Название страны:</span>
                         <select 
                             defaultValue={trip.name} 
@@ -209,12 +209,10 @@ const EditTrip = () => {
                         </div>
                     </div>
 
-                    <p>
+                    <div className={styles.formActions}>
                         <button type="submit">Сохранить</button>
-                    </p>
-                    <p>
-                        <button type="button" onClick={() => navigate(`/trips/${tripId}`)}>Cancel</button>  
-                    </p>
+                        <button type="button" onClick={() => navigate(`/trips/${tripId}`)}>Отмена</button>
+                    </div>
                 </Form>
             </>
 }

@@ -247,7 +247,7 @@ const Home = () => {
                     </div>
 
                     {error && (
-                        <div style={{ color: 'red', padding: '10px', marginTop: '10px' }}>
+                        <div className={styles.error} role="alert">
                             ⚠️ {error}
                         </div>
                     )}
@@ -268,7 +268,7 @@ const Home = () => {
                                     <LocationOnIcon />
                                 </span>
                                 <span>
-                                    {trip.name ? ` ${trip.name} ` : <i> Unnamed </i>}
+                                    {trip.name ? ` ${trip.name} ` : <i> Без названия </i>}
                                     {trip.year_1}/{+trip.month_1 + 1}/{trip.day_1}
                                     -
                                     {trip.year_2}/{+trip.month_2 + 1}/{trip.day_2} 

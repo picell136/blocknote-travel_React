@@ -270,7 +270,7 @@ const Trip = () => {
                     <h2>Поездка</h2>
                     <div>
                         <p>
-                            <strong>Страна</strong>: {trip.name ? trip.name : <i>unnamed</i>}
+                            <strong>Страна</strong>: {trip.name ? trip.name : <i>без названия</i>}
                             {trip.name && countryCodes[trip.name] && (
                                 <img
                                     className={styles.flag}
@@ -335,15 +335,15 @@ const Trip = () => {
                                     <li className={styles.noteItem}>
                                         <Link to={`/trips/${trip.id}/${note.id}`}>
                                             {note.year}/{+note.month + 1}/{note.day} 
-                                            {note.name ? ` ${shortName(note.name)} ` : <i>Unnamed</i>} 
-                                            {note.desc ? ` ${shortDesc(note.desc)} ` : <i>No description</i>}
+                                            {note.name ? ` ${shortName(note.name)} ` : <i>Без названия</i>}
+                                            {note.desc ? ` ${shortDesc(note.desc)} ` : <i>Нет описания</i>}
                                         </Link>
 
                                         {note.photos && note.photos.length > 0 && (
                                             <img
                                                 src={note.photos[0]}
                                                 alt="preview"
-                                                style={{ maxHeight: '75px', objectFit: 'cover' }}
+                                                className={styles.noteThumbnail}
                                             />
                                         )}
 
@@ -378,9 +378,10 @@ const Trip = () => {
                     )}
                 </section>
 
-                <h2>Добавить заметку</h2>
+                <section className={styles.card}>
+                    <h2>Добавить заметку</h2>
 
-                <div className={styles.dateSelects}>
+                    <div className={styles.dateSelects}>
                     <label>
                         <select 
                             value={selectedDay_1} 
@@ -420,9 +421,9 @@ const Trip = () => {
                             ))}
                         </select>
                     </label>
-                </div>
+                    </div>
 
-                <Form method="post" onSubmit={handleSubmit} className={styles.noteForm}>
+                    <Form method="post" onSubmit={handleSubmit} className={styles.noteForm}>
                     <div>
                         <span><strong>Заметка:</strong></span>
                         <input 
@@ -450,31 +451,18 @@ const Trip = () => {
 
                     <div className={styles.photoPreview}>
                         {photos.map((photo, index) => (
-                            <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+                            <div key={index} className={styles.photoPreviewItem}>
                                 <img
                                     src={photo}
                                     alt={`preview ${index}`}
-                                    style={{ width: 'min(100px, 30vw)', height: 'min(100px, 30vw)', objectFit: 'cover' }}
+                                    className={styles.photoPreviewImage}
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setPhotos(prev => prev.filter((_, i) => i !== index))}
-                                    style={{
-                                        position: 'absolute',
-                                        top: '-5px',
-                                        right: '-5px',
-                                        background: 'red',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '50%',
-                                        width: '20px',
-                                        height: '20px',
-                                        cursor: 'pointer',
-                                        fontSize: '12px',
-                                        lineHeight: '20px',
-                                        textAlign: 'center',
-                                        padding: 0,
-                                    }}
+                                    className={styles.photoRemoveButton}
+                                    aria-label="Удалить изображение"
+                                    title="Удалить изображение"
                                 >
                                     ×
                                 </button>
@@ -488,9 +476,10 @@ const Trip = () => {
                             Добавить фото
                         </button>
                         <button type="submit" className={styles.addNoteButton}>Добавить заметку</button>
-                        <button type="button" style={{width: 'auto'}} onClick={() => navigate(`/`)}>Назад</button>
+                        <button type="button" onClick={() => navigate(`/`)}>Назад</button>
                     </div>
-                </Form>
+                    </Form>
+                </section>
 
                 <Dialog
                     open={Boolean(noteToDelete)}
