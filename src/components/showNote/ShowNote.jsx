@@ -19,10 +19,12 @@ const ShowNote = () => {
 
     return (
         <>
-            <div>{note.name ? note.name : <i>unnamed</i>}</div>
-            <div>
-                <p>Дата: {note.day}/{+note.month + 1}/{note.year}</p>
-                <p>Описание: {note.desc || <i>no description</i>}</p>
+            <h1>{note.name ? note.name : <i>unnamed</i>}</h1>
+            <div className={styles.info}>
+                <div>
+                    <p>Дата: {note.day}/{+note.month + 1}/{note.year}</p>
+                    <p>Описание: {note.desc || <i>Нет описания</i>}</p>
+                </div>
             </div>
 
             {note.photos && note.photos.length > 0 && (
