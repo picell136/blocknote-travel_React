@@ -1,3 +1,14 @@
+.info {
+  min-width: 0;
+}
+
+.info h1,
+.info p {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .photos {
   display: flex;
   flex-wrap: wrap;
