@@ -19,6 +19,7 @@ export async function action({ request, params }) {
 	const day = formData.get('day');
 	const month = formData.get('month');
 	const year = formData.get('year');
+	const photos = JSON.parse(formData.get('photos') || '[]');
 	
 	await updateNote(params.noteId, {
 		name,
@@ -26,6 +27,7 @@ export async function action({ request, params }) {
 		day,
 		month,
 		year,
+		photos,
 	});
 	
     return redirect(`/trips/${params.tripId}/${params.noteId}`);
@@ -43,7 +45,7 @@ const EditNote = () => {
 	const [month, setMonth] = useState(note.month || '');
 	const [year, setYear] = useState(note.year || '');
 
-    const [photos, setPhotos] = useState(note.photos || ''); 
+    const [photos, setPhotos] = useState(note.photos || []);
     const fileInputRef = useRef(null);
 
 	const handleSubmit = (e) => {
@@ -55,6 +57,7 @@ const EditNote = () => {
 		formData.append('day', day);
 		formData.append('month', month);
 		formData.append('year', year);
+		formData.append('photos', JSON.stringify(photos));
 		
 		submit(formData, { method: 'post' });
 	};
