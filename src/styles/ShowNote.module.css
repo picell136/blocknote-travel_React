@@ -1,5 +1,9 @@
 .info {
   min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .info h1,
@@ -10,18 +14,27 @@
 }
 
 .photos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: 12px;
 }
 
 .photo {
   width: 100%;
-  max-width: 400px;
-  height: auto;
-  margin: 5px;
-  border-radius: 8px;
+  aspect-ratio: 4 / 3;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid var(--glass-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-control);
+}
+
+.gallerySection {
+  margin-top: 22px;
+}
+
+.gallerySection h2 {
+  margin-bottom: 12px;
 }
 
 .actions {
@@ -29,6 +42,13 @@
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
+  margin-top: 22px;
+}
+
+.actions button:first-child {
+  color: white;
+  border: 0;
+  background: var(--gradient-primary);
 }
 
 @media (max-width: 480px) {

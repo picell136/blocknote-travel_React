@@ -73,20 +73,21 @@ const Layout = () => {
       />
       <AppBar 
         position="relative" 
-      sx={{
+        sx={{
         top: { xs: '10px', md: '25px' },
+        zIndex: 10,
         margin: '0 auto',
         left: 0,     
         right: 0,    
         width: { xs: '98%', md: '95%' },
-        border: '1px solid rgba(255, 255, 255, 0.55)',
+        border: '1px solid var(--glass-border)',
         borderRadius: { xs: '16px', md: '24px' },
-        background: 'rgba(255, 255, 255, 0.35)',
-        boxShadow: '0 12px 40px rgba(10, 40, 70, 0.25)',
-        WebkitBackdropFilter: 'blur(14px) saturate(1.2)',
-        backdropFilter: 'blur(14px) saturate(1.2)',
-        color: '#041b4d', 
-      }}
+        background: 'var(--glass-bg)',
+        boxShadow: 'var(--shadow-card)',
+        WebkitBackdropFilter: 'var(--glass-blur)',
+        backdropFilter: 'var(--glass-blur)',
+        color: 'var(--color-text)',
+        }}
         >
         <Container maxWidth="xl" sx={{ px: { xs: 1, sm: 2 } }}>
           <Toolbar 
@@ -103,7 +104,7 @@ const Layout = () => {
               sx={{
                 mr: 2,
                 display: { md: 'flex' },
-                fontFamily: 'monospace',
+                fontFamily: '"Comfortaa", sans-serif',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',

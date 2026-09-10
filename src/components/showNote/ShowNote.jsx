@@ -20,7 +20,7 @@ const ShowNote = () => {
     return (
         <>  
             <div className={styles.info}>
-                <h1>{note.name ? note.name : <i>unnamed</i>}</h1>
+                <h1>{note.name ? note.name : <i>Без названия</i>}</h1>
                 <div>
                     <p>Дата: {note.day}/{+note.month + 1}/{note.year}</p>
                     <p>Описание: {note.desc || <i>Нет описания</i>}</p>
@@ -28,8 +28,8 @@ const ShowNote = () => {
             </div>
 
             {note.photos && note.photos.length > 0 && (
-                <div>
-                    <h4>Фото / изображения:</h4>
+                <section className={styles.gallerySection}>
+                    <h2>Фото / изображения</h2>
                     <div className={styles.photos}>
                         {note.photos.map((photo, index) => (
                         <img 
@@ -40,7 +40,7 @@ const ShowNote = () => {
                         />
                         ))}
                     </div>
-                </div>
+                </section>
             )}
 
             <div className={styles.actions}>

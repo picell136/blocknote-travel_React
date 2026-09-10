@@ -1,4 +1,29 @@
 
+.form {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.dateSelects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
 .desc {
   display: inline-block;
   vertical-align: top;
@@ -6,21 +31,38 @@
 }
 
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+  gap: 12px;
   padding: 10px;
 }
 
-.closeSign {
-  z-index: 2;
+.galleryItem {
+  position: relative;
 }
 
-.gallery img {
-  max-width: 100%;
-  height: auto;
-  padding: 6px;
+.galleryImage {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.closeSign {
+  position: absolute;
+  z-index: 2;
+  top: -7px;
+  right: -7px;
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
+  padding: 0;
+  color: white;
+  line-height: 24px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: var(--color-danger);
 }
 
 .formActions {
@@ -29,6 +71,12 @@
   gap: 8px;
   justify-content: center;
   margin-top: 10px;
+}
+
+.formActions button:first-child {
+  color: white;
+  border: 0;
+  background: var(--gradient-primary);
 }
 
 textarea {
@@ -45,6 +93,15 @@ textarea {
 }
 
 @media (max-width: 480px) {
+  .dateSelects {
+    align-items: stretch;
+  }
+
+  .dateSelects label,
+  .dateSelects select {
+    flex: 1;
+  }
+
   .formActions {
     flex-direction: column;
     align-items: stretch;
