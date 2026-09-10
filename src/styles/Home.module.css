@@ -34,17 +34,19 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  gap: 8px;
+  gap: 12px;
 }
 
 .input_countries {      
   width: 200px;
   max-width: 100%;
+  margin: 0;
 }
 
 .select_countries {
   margin: 0;
-  background-image: linear-gradient(to bottom, white, var(--color-primary-light));
+  padding: 0;
+  background: none;
   white-space: nowrap;
 }
 
